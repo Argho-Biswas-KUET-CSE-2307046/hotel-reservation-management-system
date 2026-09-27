@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,10 +15,13 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.WeatherController"
-        prefWidth="1000.0"
-        prefHeight="650.0"
-        minWidth="800.0"
-        minHeight="550.0"
+
+        prefWidth="1100.0"
+        prefHeight="750.0"
+
+        minWidth="850.0"
+        minHeight="600.0"
+
         style="-fx-background-color: #F5F7FB;">
 
     <!-- ========================================================= -->
@@ -30,6 +34,7 @@
                 alignment="CENTER_LEFT"
                 spacing="15.0"
                 prefHeight="90.0"
+
                 style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 0 0 1 0;">
@@ -61,7 +66,7 @@
                 </Label>
 
                 <Label
-                        text="Get current weather information from the internet"
+                        text="7-day weather forecast and live weather information"
                         textFill="#64748B">
 
                     <font>
@@ -104,137 +109,70 @@
 
     <center>
 
-        <VBox
-                alignment="TOP_CENTER"
-                spacing="20.0"
-                style="-fx-background-color: #F5F7FB;">
+        <ScrollPane
+                fitToWidth="true"
+                fitToHeight="true"
 
-            <padding>
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
 
-                <Insets
-                        top="30.0"
-                        right="40.0"
-                        bottom="30.0"
-                        left="40.0"/>
+                style="-fx-background-color: #F5F7FB;
+                       -fx-border-color: transparent;">
 
-            </padding>
+            <content>
+
+                <VBox
+                        alignment="TOP_CENTER"
+                        spacing="20.0"
+                        fillWidth="true"
+
+                        style="-fx-background-color: #F5F7FB;">
+
+                    <padding>
+
+                        <Insets
+                                top="30.0"
+                                right="40.0"
+                                bottom="30.0"
+                                left="40.0"/>
+
+                    </padding>
 
 
-            <!-- ================================================= -->
-            <!-- SEARCH CARD -->
-            <!-- ================================================= -->
+                    <!-- ================================================= -->
+                    <!-- SEARCH CARD -->
+                    <!-- ================================================= -->
 
-            <VBox
-                    spacing="12.0"
-                    maxWidth="750.0"
-                    style="-fx-background-color: #DBEAFE;
-                           -fx-background-radius: 12;
-                           -fx-border-color: #93C5FD;
-                           -fx-border-radius: 12;
-                           -fx-border-width: 1;
-                           -fx-padding: 20;">
+                    <VBox
+                            spacing="12.0"
+                            maxWidth="900.0"
 
-                <Label
-                        text="Search Weather"
-                        textFill="#1E3A8A">
-
-                    <font>
-
-                        <Font
-                                name="System Bold"
-                                size="19.0"/>
-
-                    </font>
-
-                </Label>
-
-                <Label
-                        text="Enter a city name to retrieve its current weather information."
-                        textFill="#475569">
-
-                    <font>
-
-                        <Font
-                                name="System"
-                                size="13.0"/>
-
-                    </font>
-
-                </Label>
-
-                <HBox
-                        alignment="CENTER_LEFT"
-                        spacing="12.0">
-
-                    <TextField
-                            fx:id="cityField"
-                            prefHeight="42.0"
-                            prefWidth="450.0"
-                            promptText="Enter city name"
-                            HBox.hgrow="ALWAYS"
-                            style="-fx-background-color: #FFFFFF;
-                                   -fx-border-color: #CBD5E1;
+                            style="-fx-background-color: #DBEAFE;
+                                   -fx-background-radius: 12;
+                                   -fx-border-color: #93C5FD;
+                                   -fx-border-radius: 12;
                                    -fx-border-width: 1;
-                                   -fx-background-radius: 8;
-                                   -fx-border-radius: 8;
-                                   -fx-padding: 8 12 8 12;
-                                   -fx-font-size: 13px;"/>
-
-                    <Button
-                            fx:id="refreshWeatherButton"
-                            mnemonicParsing="false"
-                            onAction="#refreshWeather"
-                            prefHeight="42.0"
-                            prefWidth="180.0"
-                            text="Refresh Weather"
-                            style="-fx-background-color: #2563EB;
-                                   -fx-text-fill: white;
-                                   -fx-font-size: 13px;
-                                   -fx-font-weight: bold;
-                                   -fx-background-radius: 8;
-                                   -fx-cursor: hand;"/>
-
-                </HBox>
-
-            </VBox>
-
-
-            <!-- ================================================= -->
-            <!-- WEATHER RESULT CARD -->
-            <!-- ================================================= -->
-
-            <VBox
-                    spacing="18.0"
-                    maxWidth="750.0"
-                    style="-fx-background-color: #FFFFFF;
-                           -fx-background-radius: 12;
-                           -fx-border-color: #E2E8F0;
-                           -fx-border-radius: 12;
-                           -fx-border-width: 1;
-                           -fx-padding: 25;">
-
-                <HBox
-                        alignment="CENTER_LEFT">
-
-                    <VBox spacing="4.0">
+                                   -fx-padding: 20;">
 
                         <Label
-                                text="Current Weather"
-                                textFill="#172554">
+                                text="Search Weather"
+                                textFill="#1E3A8A">
 
                             <font>
 
                                 <Font
                                         name="System Bold"
-                                        size="22.0"/>
+                                        size="19.0"/>
 
                             </font>
 
                         </Label>
 
+
                         <Label
-                                text="Live information received from an online API"
-                                textFill="#64748B">
+                                text="Enter a city name to retrieve its current weather and 7-day forecast."
+                                textFill="#475569"
+                                wrapText="true">
 
                             <font>
 
@@ -246,236 +184,480 @@
 
                         </Label>
 
+
+                        <!-- SEARCH INPUT -->
+
+                        <HBox
+                                alignment="CENTER_LEFT"
+                                spacing="12.0">
+
+                            <TextField
+                                    fx:id="cityField"
+
+                                    prefHeight="42.0"
+                                    prefWidth="500.0"
+
+                                    promptText="Enter city name"
+
+                                    HBox.hgrow="ALWAYS"
+
+                                    style="-fx-background-color: #FFFFFF;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-width: 1;
+                                           -fx-background-radius: 8;
+                                           -fx-border-radius: 8;
+                                           -fx-padding: 8 12 8 12;
+                                           -fx-font-size: 13px;"/>
+
+
+                            <Button
+                                    fx:id="refreshWeatherButton"
+
+                                    mnemonicParsing="false"
+
+                                    onAction="#refreshWeather"
+
+                                    prefHeight="42.0"
+                                    prefWidth="180.0"
+
+                                    text="Refresh Weather"
+
+                                    style="-fx-background-color: #2563EB;
+                                           -fx-text-fill: white;
+                                           -fx-font-size: 13px;
+                                           -fx-font-weight: bold;
+                                           -fx-background-radius: 8;
+                                           -fx-cursor: hand;"/>
+
+                        </HBox>
+
                     </VBox>
 
-                    <Region
-                            HBox.hgrow="ALWAYS"/>
 
-                    <Label
-                            text="ONLINE API"
-                            textFill="#2563EB">
+                    <!-- ================================================= -->
+                    <!-- CURRENT WEATHER CARD -->
+                    <!-- ================================================= -->
 
-                        <font>
+                    <VBox
+                            spacing="18.0"
+                            maxWidth="900.0"
 
-                            <Font
-                                    name="System Bold"
-                                    size="12.0"/>
-
-                        </font>
-
-                    </Label>
-
-                </HBox>
+                            style="-fx-background-color: #FFFFFF;
+                                   -fx-background-radius: 12;
+                                   -fx-border-color: #E2E8F0;
+                                   -fx-border-radius: 12;
+                                   -fx-border-width: 1;
+                                   -fx-padding: 25;">
 
 
-                <!-- CITY -->
+                        <!-- CURRENT WEATHER HEADER -->
 
-                <VBox
-                        alignment="CENTER"
-                        spacing="5.0"
-                        style="-fx-background-color: #EFF6FF;
-                               -fx-background-radius: 10;
-                               -fx-padding: 18;">
+                        <HBox
+                                alignment="CENTER_LEFT">
 
-                    <Label
-                            text="CITY"
-                            textFill="#64748B">
+                            <VBox spacing="4.0">
 
-                        <font>
+                                <Label
+                                        text="Current Weather"
+                                        textFill="#172554">
 
-                            <Font
-                                    name="System Bold"
-                                    size="11.0"/>
+                                    <font>
 
-                        </font>
+                                        <Font
+                                                name="System Bold"
+                                                size="22.0"/>
 
-                    </Label>
+                                    </font>
 
-                    <Label
-                            fx:id="cityLabel"
-                            text="--"
-                            textFill="#1E3A8A">
+                                </Label>
 
-                        <font>
 
-                            <Font
-                                    name="System Bold"
-                                    size="25.0"/>
+                                <Label
+                                        text="Live information received from an online API"
+                                        textFill="#64748B">
 
-                        </font>
+                                    <font>
 
-                    </Label>
+                                        <Font
+                                                name="System"
+                                                size="13.0"/>
+
+                                    </font>
+
+                                </Label>
+
+                            </VBox>
+
+
+                            <Region
+                                    HBox.hgrow="ALWAYS"/>
+
+
+                            <Label
+                                    text="ONLINE API"
+                                    textFill="#2563EB">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="12.0"/>
+
+                                </font>
+
+                            </Label>
+
+                        </HBox>
+
+
+                        <!-- ================================================= -->
+                        <!-- CITY -->
+                        <!-- ================================================= -->
+
+                        <VBox
+                                alignment="CENTER"
+                                spacing="5.0"
+
+                                style="-fx-background-color: #EFF6FF;
+                                       -fx-background-radius: 10;
+                                       -fx-padding: 18;">
+
+                            <Label
+                                    text="CITY"
+                                    textFill="#64748B">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="11.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <Label
+                                    fx:id="cityLabel"
+                                    text="--"
+                                    textFill="#1E3A8A">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="25.0"/>
+
+                                </font>
+
+                            </Label>
+
+                        </VBox>
+
+
+                        <!-- ================================================= -->
+                        <!-- CURRENT WEATHER VALUES -->
+                        <!-- ================================================= -->
+
+                        <HBox
+                                spacing="15.0"
+                                alignment="CENTER">
+
+
+                            <!-- TEMPERATURE -->
+
+                            <VBox
+                                    alignment="CENTER"
+                                    spacing="7.0"
+
+                                    prefWidth="210.0"
+
+                                    HBox.hgrow="ALWAYS"
+
+                                    style="-fx-background-color: #FEF3C7;
+                                           -fx-background-radius: 10;
+                                           -fx-padding: 20;">
+
+                                <Label
+                                        text="TEMPERATURE"
+                                        textFill="#92400E">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="11.0"/>
+
+                                    </font>
+
+                                </Label>
+
+
+                                <Label
+                                        fx:id="temperatureLabel"
+                                        text="-- °C"
+                                        textFill="#B45309">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="24.0"/>
+
+                                    </font>
+
+                                </Label>
+
+                            </VBox>
+
+
+                            <!-- HUMIDITY -->
+
+                            <VBox
+                                    alignment="CENTER"
+                                    spacing="7.0"
+
+                                    prefWidth="210.0"
+
+                                    HBox.hgrow="ALWAYS"
+
+                                    style="-fx-background-color: #DBEAFE;
+                                           -fx-background-radius: 10;
+                                           -fx-padding: 20;">
+
+                                <Label
+                                        text="HUMIDITY"
+                                        textFill="#1E40AF">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="11.0"/>
+
+                                    </font>
+
+                                </Label>
+
+
+                                <Label
+                                        fx:id="humidityLabel"
+                                        text="--%"
+                                        textFill="#2563EB">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="24.0"/>
+
+                                    </font>
+
+                                </Label>
+
+                            </VBox>
+
+
+                            <!-- CONDITION -->
+
+                            <VBox
+                                    alignment="CENTER"
+                                    spacing="7.0"
+
+                                    prefWidth="210.0"
+
+                                    HBox.hgrow="ALWAYS"
+
+                                    style="-fx-background-color: #DCFCE7;
+                                           -fx-background-radius: 10;
+                                           -fx-padding: 20;">
+
+                                <Label
+                                        text="CONDITION"
+                                        textFill="#166534">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="11.0"/>
+
+                                    </font>
+
+                                </Label>
+
+
+                                <Label
+                                        fx:id="conditionLabel"
+                                        text="--"
+                                        textFill="#15803D"
+
+                                        wrapText="true"
+                                        alignment="CENTER">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="18.0"/>
+
+                                    </font>
+
+                                </Label>
+
+                            </VBox>
+
+                        </HBox>
+
+
+                        <!-- ================================================= -->
+                        <!-- 7-DAY FORECAST -->
+                        <!-- ================================================= -->
+
+                        <VBox
+                                spacing="12.0"
+
+                                style="-fx-background-color: #F8FAFC;
+                                       -fx-background-radius: 10;
+                                       -fx-padding: 18;">
+
+
+                            <!-- FORECAST HEADER -->
+
+                            <HBox
+                                    alignment="CENTER_LEFT">
+
+                                <VBox spacing="3.0">
+
+                                    <Label
+                                            text="7-DAY FORECAST"
+                                            textFill="#172554">
+
+                                        <font>
+
+                                            <Font
+                                                    name="System Bold"
+                                                    size="18.0"/>
+
+                                        </font>
+
+                                    </Label>
+
+
+                                    <Label
+                                            text="Daily temperature and weather conditions"
+                                            textFill="#64748B">
+
+                                        <font>
+
+                                            <Font
+                                                    name="System"
+                                                    size="12.0"/>
+
+                                        </font>
+
+                                    </Label>
+
+                                </VBox>
+
+
+                                <Region
+                                        HBox.hgrow="ALWAYS"/>
+
+
+                                <Label
+                                        text="NEXT 7 DAYS"
+                                        textFill="#2563EB">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="11.0"/>
+
+                                    </font>
+
+                                </Label>
+
+                            </HBox>
+
+
+                            <!-- ================================================= -->
+                            <!-- FORECAST SCROLL AREA -->
+                            <!-- ================================================= -->
+
+                            <ScrollPane
+
+                                    fitToHeight="false"
+                                    fitToWidth="false"
+
+                                    hbarPolicy="AS_NEEDED"
+                                    vbarPolicy="NEVER"
+
+                                    prefHeight="280.0"
+                                    minHeight="280.0"
+
+                                    style="-fx-background-color: transparent;
+                                           -fx-border-color: transparent;">
+
+                                <content>
+
+                                    <HBox
+                                            fx:id="forecastContainer"
+
+                                            alignment="TOP_LEFT"
+                                            spacing="12.0"
+
+                                            prefHeight="250.0"
+                                            minHeight="250.0"
+
+                                            style="-fx-background-color: transparent;">
+
+                                    </HBox>
+
+                                </content>
+
+                            </ScrollPane>
+
+                        </VBox>
+
+
+                        <!-- ================================================= -->
+                        <!-- STATUS -->
+                        <!-- ================================================= -->
+
+                        <HBox
+                                alignment="CENTER"
+
+                                style="-fx-background-color: #F8FAFC;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 12;">
+
+                            <Label
+                                    fx:id="statusLabel"
+                                    text="Loading weather information..."
+                                    textFill="#64748B"
+                                    wrapText="true">
+
+                                <font>
+
+                                    <Font
+                                            name="System"
+                                            size="12.0"/>
+
+                                </font>
+
+                            </Label>
+
+                        </HBox>
+
+                    </VBox>
 
                 </VBox>
 
+            </content>
 
-                <!-- WEATHER VALUES -->
-
-                <HBox
-                        spacing="15.0"
-                        alignment="CENTER">
-
-                    <!-- TEMPERATURE -->
-
-                    <VBox
-                            alignment="CENTER"
-                            spacing="7.0"
-                            prefWidth="210.0"
-                            HBox.hgrow="ALWAYS"
-                            style="-fx-background-color: #FEF3C7;
-                                   -fx-background-radius: 10;
-                                   -fx-padding: 20;">
-
-                        <Label
-                                text="TEMPERATURE"
-                                textFill="#92400E">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="11.0"/>
-
-                            </font>
-
-                        </Label>
-
-                        <Label
-                                fx:id="temperatureLabel"
-                                text="-- °C"
-                                textFill="#B45309">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="24.0"/>
-
-                            </font>
-
-                        </Label>
-
-                    </VBox>
-
-
-                    <!-- HUMIDITY -->
-
-                    <VBox
-                            alignment="CENTER"
-                            spacing="7.0"
-                            prefWidth="210.0"
-                            HBox.hgrow="ALWAYS"
-                            style="-fx-background-color: #DBEAFE;
-                                   -fx-background-radius: 10;
-                                   -fx-padding: 20;">
-
-                        <Label
-                                text="HUMIDITY"
-                                textFill="#1E40AF">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="11.0"/>
-
-                            </font>
-
-                        </Label>
-
-                        <Label
-                                fx:id="humidityLabel"
-                                text="--%"
-                                textFill="#2563EB">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="24.0"/>
-
-                            </font>
-
-                        </Label>
-
-                    </VBox>
-
-
-                    <!-- CONDITION -->
-
-                    <VBox
-                            alignment="CENTER"
-                            spacing="7.0"
-                            prefWidth="210.0"
-                            HBox.hgrow="ALWAYS"
-                            style="-fx-background-color: #DCFCE7;
-                                   -fx-background-radius: 10;
-                                   -fx-padding: 20;">
-
-                        <Label
-                                text="CONDITION"
-                                textFill="#166534">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="11.0"/>
-
-                            </font>
-
-                        </Label>
-
-                        <Label
-                                fx:id="conditionLabel"
-                                text="--"
-                                textFill="#15803D"
-                                wrapText="true"
-                                alignment="CENTER">
-
-                            <font>
-
-                                <Font
-                                        name="System Bold"
-                                        size="18.0"/>
-
-                            </font>
-
-                        </Label>
-
-                    </VBox>
-
-                </HBox>
-
-
-                <!-- STATUS -->
-
-                <HBox
-                        alignment="CENTER"
-                        style="-fx-background-color: #F8FAFC;
-                               -fx-background-radius: 8;
-                               -fx-padding: 12;">
-
-                    <Label
-                            fx:id="statusLabel"
-                            text="Enter a city and click Refresh Weather."
-                            textFill="#64748B">
-
-                        <font>
-
-                            <Font
-                                    name="System"
-                                    size="12.0"/>
-
-                        </font>
-
-                    </Label>
-
-                </HBox>
-
-            </VBox>
-
-        </VBox>
+        </ScrollPane>
 
     </center>
 
@@ -489,7 +671,9 @@
         <HBox
                 alignment="CENTER_RIGHT"
                 spacing="12.0"
+
                 prefHeight="70.0"
+
                 style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 1 0 0 0;">
@@ -504,17 +688,23 @@
 
             </padding>
 
+
             <Region
                     HBox.hgrow="ALWAYS"/>
+
 
             <!-- BACK BUTTON -->
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#backToMain"
+
                     prefHeight="42.0"
                     prefWidth="100.0"
+
                     text="Back"
+
                     style="-fx-background-color: #E2E8F0;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;
