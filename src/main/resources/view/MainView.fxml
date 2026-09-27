@@ -298,6 +298,22 @@
                            -fx-cursor: hand;"/>
 
 
+            <!-- FINANCE & REPORTS -->
+
+            <Button
+                    maxWidth="Infinity"
+                    prefHeight="48.0"
+                    mnemonicParsing="false"
+                    onAction="#openFinance"
+                    text="Finance &amp; Reports"
+                    style="-fx-background-color: #7C3AED;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-cursor: hand;"/>
+
+
             <!-- WEATHER INFORMATION -->
 
             <Button
@@ -694,6 +710,23 @@
                                     onAction="#openBooking"
                                     text="New Booking"
                                     style="-fx-background-color: #16A34A;
+                                           -fx-text-fill: white;
+                                           -fx-font-size: 14px;
+                                           -fx-font-weight: bold;
+                                           -fx-background-radius: 8;
+                                           -fx-cursor: hand;"/>
+
+
+                            <!-- FINANCE BUTTON -->
+
+                            <Button
+                                    maxWidth="Infinity"
+                                    prefHeight="48.0"
+                                    HBox.hgrow="ALWAYS"
+                                    mnemonicParsing="false"
+                                    onAction="#openFinance"
+                                    text="Finance &amp; Reports"
+                                    style="-fx-background-color: #7C3AED;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
                                            -fx-font-weight: bold;

@@ -229,6 +229,65 @@ public class MainController {
 
 
     // =========================
+    // FINANCE & REPORTS
+    // =========================
+
+    @FXML
+    private void openFinance() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    MainController.class.getResource(
+                            "/view/FinanceView.fxml"
+                    )
+            );
+
+            Scene scene = new Scene(
+                    loader.load()
+            );
+
+            Stage stage = new Stage();
+
+            stage.setTitle(
+                    "Finance & Reports"
+            );
+
+            stage.setScene(
+                    scene
+            );
+
+            stage.setWidth(
+                    1200
+            );
+
+            stage.setHeight(
+                    800
+            );
+
+            stage.setMinWidth(
+                    1000
+            );
+
+            stage.setMinHeight(
+                    650
+            );
+
+            stage.show();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showMessage(
+                    "Finance Error",
+                    "Could not open Finance & Reports."
+            );
+        }
+    }
+
+
+    // =========================
     // WEATHER INFORMATION
     // =========================
 

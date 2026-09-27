@@ -3,13 +3,17 @@ package hotel.controller;
 import hotel.database.BookingDAO;
 import hotel.database.CustomerDAO;
 import hotel.database.RoomDAO;
+import hotel.database.FinancialDAO;
+
 import hotel.model.Booking;
 import hotel.model.BookingData;
 import hotel.model.Customer;
 import hotel.model.Room;
+
 import hotel.service.BookingService;
 
 import javafx.application.Platform;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -48,6 +52,7 @@ import java.util.concurrent.Future;
 
 public class BookingController {
 
+
     // =========================================================
     // SERVICES AND DATABASE
     // =========================================================
@@ -63,6 +68,14 @@ public class BookingController {
 
     private final RoomDAO roomDAO =
             new RoomDAO();
+
+
+    // =========================================================
+    // FINANCIAL DAO
+    // =========================================================
+
+    private final FinancialDAO financialDAO =
+            new FinancialDAO();
 
 
     // =========================================================
@@ -855,7 +868,6 @@ public class BookingController {
             return;
         }
 
-
         roomPriceSlider.setMin(1000);
 
         roomPriceSlider.setMax(5000);
@@ -1285,6 +1297,42 @@ public class BookingController {
 
 
                             // -------------------------------------------------
+                            // ADD INCOME TO FINANCIAL RECORD
+                            // -------------------------------------------------
+
+                            if (!financialDAO.incomeExistsForBooking(
+                                    booking.getBookingId()
+                            )) {
+
+                                double incomeAmount =
+                                        booking.getRoom().getPrice();
+
+                                String incomeReason =
+                                        "Room Booking - Room "
+                                                + booking.getRoom()
+                                                .getRoomNumber()
+                                                + " - Customer "
+                                                + booking.getCustomer()
+                                                .getName();
+
+                                boolean incomeSaved =
+                                        financialDAO.addIncome(
+                                                LocalDate.now(),
+                                                incomeAmount,
+                                                incomeReason,
+                                                booking.getBookingId()
+                                        );
+
+                                if (!incomeSaved) {
+
+                                    throw new RuntimeException(
+                                            "Booking was saved, but financial income could not be recorded."
+                                    );
+                                }
+                            }
+
+
+                            // -------------------------------------------------
                             // UPDATE ROOM AVAILABILITY IN SQLITE
                             // -------------------------------------------------
 
@@ -1700,7 +1748,24 @@ public class BookingController {
             try {
 
                 // -----------------------------------------------------
-                // DELETE FROM DATABASE
+                // DELETE FINANCIAL RECORD FIRST
+                // -----------------------------------------------------
+
+                boolean financialDeleted =
+                        financialDAO.deleteIncomeForBooking(
+                                selectedBooking.getBookingId()
+                        );
+
+                if (!financialDeleted) {
+
+                    throw new RuntimeException(
+                            "Could not delete financial record for booking."
+                    );
+                }
+
+
+                // -----------------------------------------------------
+                // DELETE BOOKING FROM DATABASE
                 // -----------------------------------------------------
 
                 bookingDAO.deleteBooking(

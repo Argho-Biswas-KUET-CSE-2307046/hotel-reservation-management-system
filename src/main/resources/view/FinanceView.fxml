@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hotel.controller.FinanceController"
+            prefWidth="1200"
+            prefHeight="800"
+            minWidth="1000"
+            minHeight="650">
+
+    <!-- ========================================================= -->
+    <!-- TOP HEADER -->
+    <!-- ========================================================= -->
+
+    <top>
+
+        <VBox spacing="5"
+              style="-fx-background-color: #1976D2;">
+
+            <padding>
+                <Insets top="20"
+                        right="25"
+                        bottom="20"
+                        left="25"/>
+            </padding>
+
+            <Label text="FINANCE &amp; REPORTS"
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 28px;
+                          -fx-font-weight: bold;"/>
+
+            <Label text="Manage expenses, view income and analyze financial transactions"
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 14px;"/>
+
+        </VBox>
+
+    </top>
+
+
+    <!-- ========================================================= -->
+    <!-- CENTER -->
+    <!-- ========================================================= -->
+
+    <center>
+
+        <VBox spacing="15">
+
+            <padding>
+                <Insets top="15"
+                        right="20"
+                        bottom="15"
+                        left="20"/>
+            </padding>
+
+
+            <!-- ================================================= -->
+            <!-- EXPENSE SECTION -->
+            <!-- ================================================= -->
+
+            <VBox spacing="10"
+                  style="-fx-background-color: white;
+                         -fx-border-color: #D0D7DE;
+                         -fx-border-radius: 6;
+                         -fx-background-radius: 6;">
+
+                <padding>
+                    <Insets top="15"
+                            right="15"
+                            bottom="15"
+                            left="15"/>
+                </padding>
+
+                <Label text="Add Expense"
+                       style="-fx-font-size: 20px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #333333;"/>
+
+
+                <GridPane hgap="15"
+                          vgap="10">
+
+                    <Label text="Date:"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="0"/>
+
+                    <DatePicker fx:id="expenseDatePicker"
+                                prefWidth="180"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="0"/>
+
+
+                    <Label text="Amount (৳):"
+                           GridPane.columnIndex="2"
+                           GridPane.rowIndex="0"/>
+
+                    <TextField fx:id="expenseAmountField"
+                               promptText="Enter amount"
+                               prefWidth="180"
+                               GridPane.columnIndex="3"
+                               GridPane.rowIndex="0"/>
+
+
+                    <Label text="Reason:"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="1"/>
+
+                    <TextArea fx:id="expenseReasonArea"
+                              promptText="Enter expense reason/report"
+                              prefHeight="70"
+                              wrapText="true"
+                              GridPane.columnIndex="1"
+                              GridPane.columnSpan="3"
+                              GridPane.rowIndex="1"/>
+
+                </GridPane>
+
+
+                <HBox alignment="CENTER_RIGHT">
+
+                    <Button text="Save Expense"
+                            onAction="#saveExpense"
+                            prefWidth="140"
+                            style="-fx-background-color: #1976D2;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;"/>
+
+                </HBox>
+
+            </VBox>
+
+
+            <!-- ================================================= -->
+            <!-- SUMMARY SECTION -->
+            <!-- ================================================= -->
+
+            <HBox spacing="15"
+                  alignment="CENTER">
+
+
+                <VBox alignment="CENTER"
+                      prefWidth="250"
+                      prefHeight="90"
+                      style="-fx-background-color: #E3F2FD;
+                             -fx-background-radius: 8;">
+
+                    <Label text="Last 30 Days Income"
+                           style="-fx-font-size: 14px;
+                                  -fx-text-fill: #555555;"/>
+
+                    <Label fx:id="last30IncomeLabel"
+                           text="৳ 0.00"
+                           style="-fx-font-size: 22px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #1976D2;"/>
+
+                </VBox>
+
+
+                <VBox alignment="CENTER"
+                      prefWidth="250"
+                      prefHeight="90"
+                      style="-fx-background-color: #FFF3E0;
+                             -fx-background-radius: 8;">
+
+                    <Label text="Last 30 Days Expense"
+                           style="-fx-font-size: 14px;
+                                  -fx-text-fill: #555555;"/>
+
+                    <Label fx:id="last30ExpenseLabel"
+                           text="৳ 0.00"
+                           style="-fx-font-size: 22px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #E65100;"/>
+
+                </VBox>
+
+
+                <VBox alignment="CENTER"
+                      prefWidth="250"
+                      prefHeight="90"
+                      style="-fx-background-color: #E8F5E9;
+                             -fx-background-radius: 8;">
+
+                    <Label text="Last 30 Days Balance"
+                           style="-fx-font-size: 14px;
+                                  -fx-text-fill: #555555;"/>
+
+                    <Label fx:id="last30BalanceLabel"
+                           text="৳ 0.00"
+                           style="-fx-font-size: 22px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #2E7D32;"/>
+
+                </VBox>
+
+            </HBox>
+
+
+            <!-- ================================================= -->
+            <!-- FILTER SECTION -->
+            <!-- ================================================= -->
+
+            <VBox spacing="10"
+                  style="-fx-background-color: white;
+                         -fx-border-color: #D0D7DE;
+                         -fx-border-radius: 6;
+                         -fx-background-radius: 6;">
+
+                <padding>
+                    <Insets top="12"
+                            right="15"
+                            bottom="12"
+                            left="15"/>
+                </padding>
+
+
+                <Label text="Filter Financial Report"
+                       style="-fx-font-size: 18px;
+                              -fx-font-weight: bold;"/>
+
+
+                <GridPane hgap="12"
+                          vgap="8">
+
+                    <!-- DATE RANGE -->
+
+                    <Label text="Min Date:"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="0"/>
+
+                    <DatePicker fx:id="minDatePicker"
+                                prefWidth="150"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="0"/>
+
+
+                    <Label text="Max Date:"
+                           GridPane.columnIndex="2"
+                           GridPane.rowIndex="0"/>
+
+                    <DatePicker fx:id="maxDatePicker"
+                                prefWidth="150"
+                                GridPane.columnIndex="3"
+                                GridPane.rowIndex="0"/>
+
+
+                    <!-- INCOME RANGE -->
+
+                    <Label text="Min Income (৳):"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="1"/>
+
+                    <TextField fx:id="minIncomeField"
+                               promptText="Minimum income"
+                               prefWidth="150"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
+
+
+                    <Label text="Max Income (৳):"
+                           GridPane.columnIndex="2"
+                           GridPane.rowIndex="1"/>
+
+                    <TextField fx:id="maxIncomeField"
+                               promptText="Maximum income"
+                               prefWidth="150"
+                               GridPane.columnIndex="3"
+                               GridPane.rowIndex="1"/>
+
+
+                    <!-- EXPENSE RANGE -->
+
+                    <Label text="Min Expense (৳):"
+                           GridPane.columnIndex="4"
+                           GridPane.rowIndex="0"/>
+
+                    <TextField fx:id="minExpenseField"
+                               promptText="Minimum expense"
+                               prefWidth="150"
+                               GridPane.columnIndex="5"
+                               GridPane.rowIndex="0"/>
+
+
+                    <Label text="Max Expense (৳):"
+                           GridPane.columnIndex="4"
+                           GridPane.rowIndex="1"/>
+
+                    <TextField fx:id="maxExpenseField"
+                               promptText="Maximum expense"
+                               prefWidth="150"
+                               GridPane.columnIndex="5"
+                               GridPane.rowIndex="1"/>
+
+                </GridPane>
+
+
+                <HBox spacing="10">
+
+                    <Button text="Apply Filter"
+                            onAction="#applyFilter"
+                            prefWidth="120"/>
+
+                    <Button text="Clear Filter"
+                            onAction="#clearFilter"
+                            prefWidth="120"/>
+
+                    <Button text="Last 30 Days"
+                            onAction="#showLast30Days"
+                            prefWidth="120"/>
+
+                </HBox>
+
+            </VBox>
+
+
+            <!-- ================================================= -->
+            <!-- FINANCIAL TABLE -->
+            <!-- ================================================= -->
+
+            <VBox spacing="8"
+                  VBox.vgrow="ALWAYS">
+
+                <Label text="Financial Report"
+                       style="-fx-font-size: 20px;
+                              -fx-font-weight: bold;"/>
+
+
+                <TableView fx:id="financialTable"
+                           VBox.vgrow="ALWAYS">
+
+                    <columns>
+
+                        <TableColumn fx:id="dateColumn"
+                                     text="Date"
+                                     prefWidth="110"/>
+
+                        <TableColumn fx:id="incomeColumn"
+                                     text="Income (৳)"
+                                     prefWidth="120"/>
+
+                        <TableColumn fx:id="incomeReasonColumn"
+                                     text="Reason of Income"
+                                     prefWidth="280"/>
+
+                        <TableColumn fx:id="expenseColumn"
+                                     text="Expense (৳)"
+                                     prefWidth="120"/>
+
+                        <TableColumn fx:id="expenseReasonColumn"
+                                     text="Reason of Expense"
+                                     prefWidth="280"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+
+            <!-- ================================================= -->
+            <!-- BOTTOM TOTAL -->
+            <!-- ================================================= -->
+
+            <HBox alignment="CENTER_RIGHT"
+                  spacing="25">
+
+                <Label text="Selected Range Income:"
+                       style="-fx-font-weight: bold;"/>
+
+                <Label fx:id="filteredIncomeLabel"
+                       text="৳ 0.00"
+                       style="-fx-font-weight: bold;
+                              -fx-text-fill: #1976D2;"/>
+
+
+                <Label text="Selected Range Expense:"
+                       style="-fx-font-weight: bold;"/>
+
+                <Label fx:id="filteredExpenseLabel"
+                       text="৳ 0.00"
+                       style="-fx-font-weight: bold;
+                              -fx-text-fill: #E65100;"/>
+
+
+                <Label text="Balance:"
+                       style="-fx-font-weight: bold;"/>
+
+                <Label fx:id="filteredBalanceLabel"
+                       text="৳ 0.00"
+                       style="-fx-font-weight: bold;
+                              -fx-text-fill: #2E7D32;"/>
+
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+
+    <!-- ========================================================= -->
+    <!-- BOTTOM CHART -->
+    <!-- ========================================================= -->
+
+    <bottom>
+
+        <VBox spacing="8">
+
+            <padding>
+                <Insets top="10"
+                        right="20"
+                        bottom="15"
+                        left="20"/>
+            </padding>
+
+
+            <Label text="Income vs Expense"
+                   style="-fx-font-size: 20px;
+                          -fx-font-weight: bold;"/>
+
+
+            <BarChart fx:id="financialChart"
+                      prefHeight="250"
+                      animated="false"
+                      legendVisible="true">
+
+                <xAxis>
+
+                    <CategoryAxis fx:id="chartXAxis"
+                                  label="Date"/>
+
+                </xAxis>
+
+                <yAxis>
+
+                    <NumberAxis fx:id="chartYAxis"
+                                label="Amount (৳)"
+                                forceZeroInRange="true"/>
+
+                </yAxis>
+
+            </BarChart>
+
+        </VBox>
+
+    </bottom>
+
+</BorderPane>

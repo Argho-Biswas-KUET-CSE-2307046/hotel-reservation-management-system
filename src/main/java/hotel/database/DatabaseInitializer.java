@@ -46,6 +46,25 @@ public class DatabaseInitializer {
                 )
                 """;
 
+        // SQL for Financial Transactions table
+        String createFinancialTransactionsTable = """
+                CREATE TABLE IF NOT EXISTS financial_transactions (
+                    transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    transaction_date TEXT NOT NULL,
+
+                    income_amount REAL DEFAULT 0,
+                    income_reason TEXT,
+
+                    expense_amount REAL DEFAULT 0,
+                    expense_reason TEXT,
+
+                    booking_id INTEGER UNIQUE,
+
+                    FOREIGN KEY (booking_id)
+                        REFERENCES bookings(booking_id)
+                )
+                """;
+
         try (Connection connection =
                      DatabaseConnection.getConnection();
              Statement statement =
@@ -62,6 +81,9 @@ public class DatabaseInitializer {
 
             // Create Bookings table
             statement.execute(createBookingsTable);
+
+            // Create Financial Transactions table
+            statement.execute(createFinancialTransactionsTable);
 
             System.out.println(
                     "Database tables created successfully!"
