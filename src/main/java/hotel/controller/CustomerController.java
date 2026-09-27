@@ -7,32 +7,40 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class CustomerController implements Initializable {
 
-    // =========================
-    // TABLE AND COLUMNS
-    // =========================
+/**
+ * Controller for Customer Management page.
+ *
+ * The main Customer Management page is responsible for:
+ *
+ * 1. Showing all customers
+ * 2. Live searching customers
+ * 3. Opening Add Customer page
+ * 4. Opening Update Customer page
+ * 5. Deleting customers
+ * 6. Opening Booking page for selected customer
+ * 7. Returning to Main Dashboard
+ */
+public class CustomerController {
+
+    // =========================================================
+    // FXML CONTROLS
+    // =========================================================
+
+    @FXML
+    private TextField searchField;
 
     @FXML
     private TableView<Customer> customerTable;
@@ -53,51 +61,35 @@ public class CustomerController implements Initializable {
     private TableColumn<Customer, String> addressColumn;
 
 
-    // =========================
-    // CUSTOMER IMAGE
-    // =========================
-
-    @FXML
-    private ImageView customerImageView;
-
-
-    // =========================
-    // SPECIAL REQUEST
-    // =========================
-
-    @FXML
-    private TextArea specialRequestTextArea;
-
-
-    // =========================
-    // CUSTOMER LIST
-    // =========================
+    // =========================================================
+    // CUSTOMER DATA
+    // =========================================================
 
     private final ObservableList<Customer> customerList =
             FXCollections.observableArrayList();
 
+    private final ObservableList<Customer> filteredCustomerList =
+            FXCollections.observableArrayList();
 
-    // =========================
+
+    // =========================================================
     // CUSTOMER DAO
-    // =========================
+    // =========================================================
 
     private final CustomerDAO customerDAO =
             new CustomerDAO();
 
 
-    // =========================
+    // =========================================================
     // INITIALIZE
-    // =========================
+    // =========================================================
 
-    @Override
-    public void initialize(
-            URL location,
-            ResourceBundle resources
-    ) {
+    @FXML
+    public void initialize() {
 
-        // =========================
+        // =====================================================
         // CONNECT TABLE COLUMNS
-        // =========================
+        // =====================================================
 
         customerIdColumn.setCellValueFactory(
                 new PropertyValueFactory<>("customerId")
@@ -120,548 +112,256 @@ public class CustomerController implements Initializable {
         );
 
 
-        // =========================
-        // CONNECT LIST WITH TABLE
-        // =========================
+        // =====================================================
+        // CONNECT FILTERED LIST WITH TABLE
+        // =====================================================
 
-        customerTable.setItems(customerList);
+        customerTable.setItems(filteredCustomerList);
 
 
-        // =========================
-        // LOAD CUSTOMERS FROM SQLITE
-        // =========================
+        // =====================================================
+        // LOAD CUSTOMERS FROM DATABASE
+        // =====================================================
 
         loadCustomersFromDatabase();
 
 
-        // =========================
-        // AUTOMATICALLY SELECT
-        // FIRST CUSTOMER
-        // =========================
+        // =====================================================
+        // LIVE SEARCH
+        // =====================================================
 
-        if (!customerList.isEmpty()) {
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
 
-            customerTable
-                    .getSelectionModel()
-                    .selectFirst();
-
-            loadCustomerImage(
-                    customerList.get(0)
-            );
-        }
-
-
-        // =========================
-        // CUSTOMER SELECTION
-        // =========================
-
-        customerTable
-                .getSelectionModel()
-                .selectedItemProperty()
-                .addListener(
-                        (observable,
-                         oldCustomer,
-                         newCustomer) -> {
-
-                            if (newCustomer != null) {
-
-                                loadCustomerImage(
-                                        newCustomer
-                                );
-                            }
-                        }
-                );
+                    filterCustomers(newValue);
+                }
+        );
     }
 
 
-    // =========================
-    // LOAD CUSTOMERS FROM SQLITE
-    // =========================
+    // =========================================================
+    // LOAD CUSTOMERS FROM SQLITE DATABASE
+    // =========================================================
 
     private void loadCustomersFromDatabase() {
 
-        customerList.clear();
+        try {
 
-        List<Customer> customers =
-                customerDAO.getAllCustomers();
+            List<Customer> customers =
+                    customerDAO.getAllCustomers();
 
-        customerList.addAll(customers);
-    }
+            customerList.clear();
 
+            customerList.addAll(customers);
 
-    // =========================
-    // LOAD CUSTOMER IMAGE
-    // =========================
+            // Initially show all customers
+            filteredCustomerList.setAll(
+                    customerList
+            );
 
-    private void loadCustomerImage(
-            Customer customer
-    ) {
+        } catch (RuntimeException e) {
 
-        if (customer == null) {
+            e.printStackTrace();
 
-            customerImageView.setImage(null);
-
-            return;
-        }
-
-
-        if (customer.getPhotoPath() != null
-                && !customer.getPhotoPath().isEmpty()) {
-
-            try {
-
-                Image image =
-                        new Image(
-                                customer.getPhotoPath()
-                        );
-
-                customerImageView.setImage(image);
-
-            } catch (Exception e) {
-
-                customerImageView.setImage(null);
-            }
-
-        } else {
-
-            customerImageView.setImage(null);
+            showError(
+                    "Database Error",
+                    "Could not load customers from database."
+            );
         }
     }
 
 
-    // =========================
-    // BROWSE IMAGE
-    // =========================
+    // =========================================================
+    // LIVE CUSTOMER SEARCH
+    // =========================================================
 
-    @FXML
-    private void browseImage() {
+    private void filterCustomers(String searchText) {
 
-        Customer selectedCustomer =
-                customerTable
-                        .getSelectionModel()
-                        .getSelectedItem();
+        // Clear current displayed results
+        filteredCustomerList.clear();
 
 
-        // =========================
-        // CHECK SELECTION
-        // =========================
+        // If search box is empty, show all customers
+        if (searchText == null ||
+                searchText.trim().isEmpty()) {
 
-        if (selectedCustomer == null) {
-
-            showMessage(
-                    "Warning",
-                    "Please select a customer first."
+            filteredCustomerList.addAll(
+                    customerList
             );
 
             return;
         }
 
 
-        // =========================
-        // FILE CHOOSER
-        // =========================
-
-        FileChooser fileChooser =
-                new FileChooser();
-
-        fileChooser.setTitle(
-                "Select Customer Image"
-        );
+        // Convert search text to lowercase
+        String search =
+                searchText
+                        .trim()
+                        .toLowerCase();
 
 
-        // =========================
-        // IMAGE FILTER
-        // =========================
+        // =====================================================
+        // CHECK EVERY CUSTOMER
+        // =====================================================
 
-        fileChooser
-                .getExtensionFilters()
-                .add(
-                        new FileChooser.ExtensionFilter(
-                                "Image Files",
-                                "*.png",
-                                "*.jpg",
-                                "*.jpeg"
-                        )
+        for (Customer customer : customerList) {
+
+            String id =
+                    String.valueOf(
+                            customer.getCustomerId()
+                    ).toLowerCase();
+
+            String name =
+                    safeString(
+                            customer.getName()
+                    ).toLowerCase();
+
+            String phone =
+                    safeString(
+                            customer.getPhone()
+                    ).toLowerCase();
+
+            String email =
+                    safeString(
+                            customer.getEmail()
+                    ).toLowerCase();
+
+            String address =
+                    safeString(
+                            customer.getAddress()
+                    ).toLowerCase();
+
+
+            // =================================================
+            // MATCH ANY FIELD
+            // =================================================
+
+            if (id.contains(search)
+                    || name.contains(search)
+                    || phone.contains(search)
+                    || email.contains(search)
+                    || address.contains(search)) {
+
+                filteredCustomerList.add(
+                        customer
                 );
-
-
-        // =========================
-        // GET CURRENT WINDOW
-        // =========================
-
-        Stage stage =
-                (Stage) customerImageView
-                        .getScene()
-                        .getWindow();
-
-
-        // =========================
-        // OPEN FILE CHOOSER
-        // =========================
-
-        File file =
-                fileChooser.showOpenDialog(stage);
-
-
-        // =========================
-        // SAVE IMAGE
-        // =========================
-
-        if (file != null) {
-
-            String photoPath =
-                    file.toURI().toString();
-
-            selectedCustomer.setPhotoPath(
-                    photoPath
-            );
-
-
-            // =========================
-            // SAVE PHOTO PATH TO SQLITE
-            // =========================
-
-            customerDAO.updateCustomer(
-                    selectedCustomer
-            );
-
-
-            // =========================
-            // DISPLAY IMAGE
-            // =========================
-
-            try {
-
-                Image image =
-                        new Image(photoPath);
-
-                customerImageView.setImage(image);
-
-            } catch (Exception e) {
-
-                customerImageView.setImage(null);
             }
-
-
-            showMessage(
-                    "Success",
-                    "Customer image updated successfully!"
-            );
         }
     }
 
 
-    // =========================
+    // =========================================================
+    // SAFE STRING
+    // =========================================================
+
+    private String safeString(String value) {
+
+        if (value == null) {
+            return "";
+        }
+
+        return value;
+    }
+
+
+    // =========================================================
     // ADD CUSTOMER
-    // =========================
+    // =========================================================
 
     @FXML
     private void addCustomer() {
 
-        // =========================
-        // CUSTOMER ID
-        // =========================
-
-        TextInputDialog idDialog =
-                new TextInputDialog();
-
-        idDialog.setTitle(
-                "Add Customer"
-        );
-
-        idDialog.setHeaderText(
-                "Enter Customer ID"
-        );
-
-        idDialog.setContentText(
-                "Customer ID:"
-        );
-
-
-        Optional<String> idResult =
-                idDialog.showAndWait();
-
-        if (idResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // NAME
-        // =========================
-
-        TextInputDialog nameDialog =
-                new TextInputDialog();
-
-        nameDialog.setTitle(
-                "Add Customer"
-        );
-
-        nameDialog.setHeaderText(
-                "Enter Customer Name"
-        );
-
-        nameDialog.setContentText(
-                "Name:"
-        );
-
-
-        Optional<String> nameResult =
-                nameDialog.showAndWait();
-
-        if (nameResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // PHONE
-        // =========================
-
-        TextInputDialog phoneDialog =
-                new TextInputDialog();
-
-        phoneDialog.setTitle(
-                "Add Customer"
-        );
-
-        phoneDialog.setHeaderText(
-                "Enter Phone Number"
-        );
-
-        phoneDialog.setContentText(
-                "Phone:"
-        );
-
-
-        Optional<String> phoneResult =
-                phoneDialog.showAndWait();
-
-        if (phoneResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // EMAIL
-        // =========================
-
-        TextInputDialog emailDialog =
-                new TextInputDialog();
-
-        emailDialog.setTitle(
-                "Add Customer"
-        );
-
-        emailDialog.setHeaderText(
-                "Enter Email"
-        );
-
-        emailDialog.setContentText(
-                "Email:"
-        );
-
-
-        Optional<String> emailResult =
-                emailDialog.showAndWait();
-
-        if (emailResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // ADDRESS
-        // =========================
-
-        TextInputDialog addressDialog =
-                new TextInputDialog();
-
-        addressDialog.setTitle(
-                "Add Customer"
-        );
-
-        addressDialog.setHeaderText(
-                "Enter Address"
-        );
-
-        addressDialog.setContentText(
-                "Address:"
-        );
-
-
-        Optional<String> addressResult =
-                addressDialog.showAndWait();
-
-        if (addressResult.isEmpty()) {
-            return;
-        }
-
-
         try {
 
-            // =========================
-            // READ VALUES
-            // =========================
+            // =================================================
+            // LOAD ADD CUSTOMER PAGE
+            // =================================================
 
-            int customerId =
-                    Integer.parseInt(
-                            idResult.get().trim()
-                    );
-
-            String name =
-                    nameResult.get().trim();
-
-            String phone =
-                    phoneResult.get().trim();
-
-            String email =
-                    emailResult.get().trim();
-
-            String address =
-                    addressResult.get().trim();
-
-
-            // =========================
-            // VALIDATION
-            // =========================
-
-            if (name.isEmpty()) {
-
-                showMessage(
-                        "Error",
-                        "Customer name cannot be empty."
-                );
-
-                return;
-            }
-
-            if (customerId <= 0) {
-
-                showMessage(
-                        "Error",
-                        "Customer ID must be greater than 0."
-                );
-
-                return;
-            }
-
-
-            // =========================
-            // CHECK DUPLICATE ID
-            // =========================
-
-            Customer existingCustomer =
-                    customerDAO.getCustomerById(
-                            customerId
-                    );
-
-            if (existingCustomer != null) {
-
-                showMessage(
-                        "Error",
-                        "Customer ID already exists."
-                );
-
-                return;
-            }
-
-
-            // =========================
-            // CREATE CUSTOMER
-            // =========================
-
-            Customer customer =
-                    new Customer(
-                            customerId,
-                            name,
-                            phone,
-                            email,
-                            address
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            CustomerController.class.getResource(
+                                    "/view/AddCustomerView.fxml"
+                            )
                     );
 
 
-            // =========================
-            // SAVE TO SQLITE
-            // =========================
+            Scene scene =
+                    new Scene(
+                            loader.load()
+                    );
 
-            customerDAO.addCustomer(
-                    customer
+
+            // =================================================
+            // CREATE NEW WINDOW
+            // =================================================
+
+            Stage stage =
+                    new Stage();
+
+
+            stage.setTitle(
+                    "Add Customer"
+            );
+
+            stage.setScene(scene);
+
+            stage.setWidth(850);
+
+            stage.setHeight(650);
+
+            stage.setMinWidth(750);
+
+            stage.setMinHeight(550);
+
+            stage.show();
+
+
+            // =================================================
+            // REFRESH WHEN WINDOW CLOSES
+            // =================================================
+
+            stage.setOnHidden(
+                    event -> loadCustomersFromDatabase()
             );
 
 
-            // =========================
-            // RELOAD DATABASE DATA
-            // =========================
+        } catch (Exception e) {
 
-            loadCustomersFromDatabase();
+            e.printStackTrace();
 
-
-            // =========================
-            // SELECT NEW CUSTOMER
-            // =========================
-
-            for (Customer c : customerList) {
-
-                if (c.getCustomerId()
-                        == customerId) {
-
-                    customerTable
-                            .getSelectionModel()
-                            .select(c);
-
-                    customerTable
-                            .scrollTo(c);
-
-                    break;
-                }
-            }
-
-
-            showMessage(
-                    "Success",
-                    "Customer added successfully!"
-            );
-
-
-        } catch (NumberFormatException e) {
-
-            showMessage(
+            showError(
                     "Error",
-                    "Customer ID must be a valid number."
-            );
-
-        } catch (RuntimeException e) {
-
-            showMessage(
-                    "Database Error",
-                    e.getMessage()
+                    "Could not open Add Customer page."
             );
         }
     }
 
 
-    // =========================
+    // =========================================================
     // UPDATE CUSTOMER
-    // =========================
+    // =========================================================
 
     @FXML
     private void updateCustomer() {
 
+        // =====================================================
+        // GET SELECTED CUSTOMER
+        // =====================================================
+
         Customer selectedCustomer =
                 customerTable
                         .getSelectionModel()
                         .getSelectedItem();
 
 
-        // =========================
+        // =====================================================
         // CHECK SELECTION
-        // =========================
+        // =====================================================
 
         if (selectedCustomer == null) {
 
-            showMessage(
-                    "Warning",
+            showWarning(
+                    "No Customer Selected",
                     "Please select a customer first."
             );
 
@@ -669,237 +369,99 @@ public class CustomerController implements Initializable {
         }
 
 
-        // =========================
-        // NAME
-        // =========================
-
-        TextInputDialog nameDialog =
-                new TextInputDialog(
-                        selectedCustomer.getName()
-                );
-
-        nameDialog.setTitle(
-                "Update Customer"
-        );
-
-        nameDialog.setHeaderText(
-                "Update Customer Name"
-        );
-
-        nameDialog.setContentText(
-                "Name:"
-        );
-
-
-        Optional<String> nameResult =
-                nameDialog.showAndWait();
-
-        if (nameResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // PHONE
-        // =========================
-
-        TextInputDialog phoneDialog =
-                new TextInputDialog(
-                        selectedCustomer.getPhone()
-                );
-
-        phoneDialog.setTitle(
-                "Update Customer"
-        );
-
-        phoneDialog.setHeaderText(
-                "Update Phone Number"
-        );
-
-        phoneDialog.setContentText(
-                "Phone:"
-        );
-
-
-        Optional<String> phoneResult =
-                phoneDialog.showAndWait();
-
-        if (phoneResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // EMAIL
-        // =========================
-
-        TextInputDialog emailDialog =
-                new TextInputDialog(
-                        selectedCustomer.getEmail()
-                );
-
-        emailDialog.setTitle(
-                "Update Customer"
-        );
-
-        emailDialog.setHeaderText(
-                "Update Email"
-        );
-
-        emailDialog.setContentText(
-                "Email:"
-        );
-
-
-        Optional<String> emailResult =
-                emailDialog.showAndWait();
-
-        if (emailResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // ADDRESS
-        // =========================
-
-        TextInputDialog addressDialog =
-                new TextInputDialog(
-                        selectedCustomer.getAddress()
-                );
-
-        addressDialog.setTitle(
-                "Update Customer"
-        );
-
-        addressDialog.setHeaderText(
-                "Update Address"
-        );
-
-        addressDialog.setContentText(
-                "Address:"
-        );
-
-
-        Optional<String> addressResult =
-                addressDialog.showAndWait();
-
-        if (addressResult.isEmpty()) {
-            return;
-        }
-
-
-        // =========================
-        // READ VALUES
-        // =========================
-
-        String newName =
-                nameResult.get().trim();
-
-        String newPhone =
-                phoneResult.get().trim();
-
-        String newEmail =
-                emailResult.get().trim();
-
-        String newAddress =
-                addressResult.get().trim();
-
-
-        // =========================
-        // VALIDATION
-        // =========================
-
-        if (newName.isEmpty()) {
-
-            showMessage(
-                    "Error",
-                    "Customer name cannot be empty."
-            );
-
-            return;
-        }
-
-
-        // =========================
-        // UPDATE OBJECT
-        // =========================
-
-        selectedCustomer.setName(
-                newName
-        );
-
-        selectedCustomer.setPhone(
-                newPhone
-        );
-
-        selectedCustomer.setEmail(
-                newEmail
-        );
-
-        selectedCustomer.setAddress(
-                newAddress
-        );
-
-
         try {
 
-            // =========================
-            // UPDATE SQLITE
-            // =========================
+            // =================================================
+            // LOAD UPDATE CUSTOMER PAGE
+            // =================================================
 
-            customerDAO.updateCustomer(
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            CustomerController.class.getResource(
+                                    "/view/UpdateCustomerView.fxml"
+                            )
+                    );
+
+
+            Scene scene =
+                    new Scene(
+                            loader.load()
+                    );
+
+
+            // =================================================
+            // GET UPDATE CONTROLLER
+            // =================================================
+
+            UpdateCustomerController controller =
+                    loader.getController();
+
+
+            // =================================================
+            // PASS SELECTED CUSTOMER
+            // =================================================
+
+            controller.setCustomer(
                     selectedCustomer
             );
 
 
-            // =========================
-            // RELOAD DATA
-            // =========================
+            // =================================================
+            // CREATE UPDATE WINDOW
+            // =================================================
 
-            loadCustomersFromDatabase();
-
-
-            // =========================
-            // RESELECT CUSTOMER
-            // =========================
-
-            for (Customer customer :
-                    customerList) {
-
-                if (customer.getCustomerId()
-                        == selectedCustomer.getCustomerId()) {
-
-                    customerTable
-                            .getSelectionModel()
-                            .select(customer);
-
-                    break;
-                }
-            }
+            Stage stage =
+                    new Stage();
 
 
-            showMessage(
-                    "Success",
-                    "Customer updated successfully!"
+            stage.setTitle(
+                    "Update Customer"
             );
 
-        } catch (RuntimeException e) {
+            stage.setScene(scene);
 
-            showMessage(
-                    "Database Error",
-                    e.getMessage()
+            stage.setWidth(850);
+
+            stage.setHeight(650);
+
+            stage.setMinWidth(750);
+
+            stage.setMinHeight(550);
+
+            stage.show();
+
+
+            // =================================================
+            // REFRESH TABLE AFTER UPDATE
+            // =================================================
+
+            stage.setOnHidden(
+                    event -> loadCustomersFromDatabase()
+            );
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showError(
+                    "Error",
+                    "Could not open Update Customer page."
             );
         }
     }
 
 
-    // =========================
+    // =========================================================
     // DELETE CUSTOMER
-    // =========================
+    // =========================================================
 
     @FXML
     private void deleteCustomer() {
+
+        // =====================================================
+        // GET SELECTED CUSTOMER
+        // =====================================================
 
         Customer selectedCustomer =
                 customerTable
@@ -907,14 +469,14 @@ public class CustomerController implements Initializable {
                         .getSelectedItem();
 
 
-        // =========================
+        // =====================================================
         // CHECK SELECTION
-        // =========================
+        // =====================================================
 
         if (selectedCustomer == null) {
 
-            showMessage(
-                    "Warning",
+            showWarning(
+                    "No Customer Selected",
                     "Please select a customer first."
             );
 
@@ -922,24 +484,27 @@ public class CustomerController implements Initializable {
         }
 
 
-        // =========================
-        // CONFIRMATION
-        // =========================
+        // =====================================================
+        // CONFIRM DELETE
+        // =====================================================
 
         Alert confirmation =
                 new Alert(
                         Alert.AlertType.CONFIRMATION
                 );
 
+
         confirmation.setTitle(
                 "Delete Customer"
         );
+
 
         confirmation.setHeaderText(
                 "Delete Customer "
                         + selectedCustomer.getName()
                         + "?"
         );
+
 
         confirmation.setContentText(
                 "Are you sure you want to delete this customer?"
@@ -950,9 +515,9 @@ public class CustomerController implements Initializable {
                 confirmation.showAndWait();
 
 
-        // =========================
-        // DELETE
-        // =========================
+        // =====================================================
+        // DELETE IF USER PRESSES OK
+        // =====================================================
 
         if (result.isPresent()
                 && result.get() == ButtonType.OK) {
@@ -964,56 +529,46 @@ public class CustomerController implements Initializable {
                 );
 
 
-                // =========================
-                // RELOAD DATABASE
-                // =========================
+                // =================================================
+                // RELOAD CUSTOMER LIST
+                // =================================================
 
                 loadCustomersFromDatabase();
 
 
-                // =========================
-                // CLEAR IMAGE
-                // =========================
+                // =================================================
+                // SUCCESS MESSAGE
+                // =================================================
 
-                customerImageView.setImage(null);
-
-
-                showMessage(
+                showInformation(
                         "Success",
                         "Customer deleted successfully!"
                 );
 
+
             } catch (RuntimeException e) {
 
-                showMessage(
+                e.printStackTrace();
+
+                showError(
                         "Database Error",
-                        e.getMessage()
+                        "Could not delete customer."
                 );
             }
         }
     }
 
 
-    // =========================
-    // CLEAR SPECIAL REQUEST
-    // =========================
-
-    @FXML
-    private void clearSpecialRequest() {
-
-        if (specialRequestTextArea != null) {
-
-            specialRequestTextArea.clear();
-        }
-    }
-
-
-    // =========================
+    // =========================================================
     // BOOK SELECTED CUSTOMER
-    // =========================
+    // =========================================================
 
     @FXML
     private void bookSelectedCustomer() {
+
+        // =====================================================
+        // GET SELECTED CUSTOMER
+        // =====================================================
 
         Customer selectedCustomer =
                 customerTable
@@ -1021,14 +576,14 @@ public class CustomerController implements Initializable {
                         .getSelectedItem();
 
 
-        // =========================
+        // =====================================================
         // CHECK SELECTION
-        // =========================
+        // =====================================================
 
         if (selectedCustomer == null) {
 
-            showMessage(
-                    "Warning",
+            showWarning(
+                    "No Customer Selected",
                     "Please select a customer first."
             );
 
@@ -1038,16 +593,15 @@ public class CustomerController implements Initializable {
 
         try {
 
-            // =========================
-            // LOAD BOOKING VIEW
-            // =========================
+            // =================================================
+            // LOAD BOOKING PAGE
+            // =================================================
 
             FXMLLoader loader =
                     new FXMLLoader(
-                            CustomerController.class
-                                    .getResource(
-                                            "/view/BookingView.fxml"
-                                    )
+                            CustomerController.class.getResource(
+                                    "/view/BookingView.fxml"
+                            )
                     );
 
 
@@ -1057,29 +611,30 @@ public class CustomerController implements Initializable {
                     );
 
 
-            // =========================
+            // =================================================
             // GET BOOKING CONTROLLER
-            // =========================
+            // =================================================
 
             BookingController controller =
                     loader.getController();
 
 
-            // =========================
-            // PASS CUSTOMER
-            // =========================
+            // =================================================
+            // PASS CUSTOMER TO BOOKING CONTROLLER
+            // =================================================
 
             controller.setSelectedCustomer(
                     selectedCustomer
             );
 
 
-            // =========================
+            // =================================================
             // OPEN BOOKING WINDOW
-            // =========================
+            // =================================================
 
             Stage stage =
                     new Stage();
+
 
             stage.setTitle(
                     "Booking Management"
@@ -1087,9 +642,9 @@ public class CustomerController implements Initializable {
 
             stage.setScene(scene);
 
-            stage.setWidth(800);
+            stage.setWidth(900);
 
-            stage.setHeight(550);
+            stage.setHeight(700);
 
             stage.show();
 
@@ -1098,7 +653,7 @@ public class CustomerController implements Initializable {
 
             e.printStackTrace();
 
-            showMessage(
+            showError(
                     "Error",
                     "Could not open Booking Management."
             );
@@ -1106,9 +661,9 @@ public class CustomerController implements Initializable {
     }
 
 
-    // =========================
-    // BACK TO MAIN
-    // =========================
+    // =========================================================
+    // BACK TO MAIN DASHBOARD
+    // =========================================================
 
     @FXML
     private void backToMain() {
@@ -1118,23 +673,72 @@ public class CustomerController implements Initializable {
                         .getScene()
                         .getWindow();
 
+
         stage.close();
     }
 
 
-    // =========================
-    // SHOW MESSAGE
-    // =========================
+    // =========================================================
+    // INFORMATION MESSAGE
+    // =========================================================
 
-    private void showMessage(
+    private void showInformation(
             String title,
-            String message
-    ) {
+            String message) {
 
         Alert alert =
                 new Alert(
                         Alert.AlertType.INFORMATION
                 );
+
+
+        alert.setTitle(title);
+
+        alert.setHeaderText(null);
+
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+
+    // =========================================================
+    // WARNING MESSAGE
+    // =========================================================
+
+    private void showWarning(
+            String title,
+            String message) {
+
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.WARNING
+                );
+
+
+        alert.setTitle(title);
+
+        alert.setHeaderText(null);
+
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+
+    // =========================================================
+    // ERROR MESSAGE
+    // =========================================================
+
+    private void showError(
+            String title,
+            String message) {
+
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.ERROR
+                );
+
 
         alert.setTitle(title);
 

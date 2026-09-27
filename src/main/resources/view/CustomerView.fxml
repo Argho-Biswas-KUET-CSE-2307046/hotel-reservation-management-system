@@ -5,8 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -29,82 +28,67 @@
 
    <top>
 
-      <VBox spacing="0.0">
+      <HBox
+              alignment="CENTER_LEFT"
+              spacing="15.0"
+              prefHeight="85.0"
+              style="-fx-background-color: #FFFFFF;
+                       -fx-border-color: #E2E8F0;
+                       -fx-border-width: 0 0 1 0;">
 
-         <HBox
-                 alignment="CENTER_LEFT"
-                 spacing="15.0"
-                 prefHeight="90.0"
-                 style="-fx-background-color: #FFFFFF;
-                           -fx-border-color: #E2E8F0;
-                           -fx-border-width: 0 0 1 0;">
+         <padding>
+            <Insets
+                    top="15.0"
+                    right="30.0"
+                    bottom="15.0"
+                    left="30.0"/>
+         </padding>
 
-            <padding>
+         <!-- TITLE -->
 
-               <Insets
-                       top="15.0"
-                       right="30.0"
-                       bottom="15.0"
-                       left="30.0"/>
-
-            </padding>
-
-
-            <VBox spacing="3.0">
-
-               <Label
-                       text="CUSTOMER MANAGEMENT"
-                       textFill="#1E3A8A">
-
-                  <font>
-
-                     <Font
-                             name="System Bold"
-                             size="26.0"/>
-
-                  </font>
-
-               </Label>
-
-
-               <Label
-                       text="Manage customer information and records"
-                       textFill="#64748B">
-
-                  <font>
-
-                     <Font
-                             name="System"
-                             size="13.0"/>
-
-                  </font>
-
-               </Label>
-
-            </VBox>
-
-
-            <Region
-                    HBox.hgrow="ALWAYS"/>
-
+         <VBox spacing="3.0">
 
             <Label
-                    text="CUSTOMERS"
-                    textFill="#DB2777">
+                    text="CUSTOMER MANAGEMENT"
+                    textFill="#1E3A8A">
 
                <font>
-
                   <Font
                           name="System Bold"
-                          size="14.0"/>
-
+                          size="26.0"/>
                </font>
 
             </Label>
 
-         </HBox>
+            <Label
+                    text="Search and manage customer information"
+                    textFill="#64748B">
 
-      </VBox>
+               <font>
+                  <Font
+                          name="System"
+                          size="13.0"/>
+               </font>
+
+            </Label>
+
+         </VBox>
+
+         <Region HBox.hgrow="ALWAYS"/>
+
+         <Label
+                 text="CUSTOMERS"
+                 textFill="#DB2777">
+
+            <font>
+               <Font
+                       name="System Bold"
+                       size="14.0"/>
+            </font>
+
+         </Label>
+
+      </HBox>
 
    </top>
 
@@ -117,22 +101,112 @@
 
       <VBox
               spacing="18.0"
+              VBox.vgrow="ALWAYS"
               style="-fx-background-color: #F5F7FB;">
 
          <padding>
-
             <Insets
                     top="25.0"
                     right="30.0"
-                    bottom="20.0"
+                    bottom="25.0"
                     left="30.0"/>
-
          </padding>
 
 
-         <!-- ===================================================== -->
+         <!-- ================================================= -->
+         <!-- SEARCH CARD -->
+         <!-- ================================================= -->
+
+         <VBox
+                 spacing="12.0"
+                 style="-fx-background-color: #FFFFFF;
+                           -fx-background-radius: 12;
+                           -fx-border-color: #E2E8F0;
+                           -fx-border-radius: 12;
+                           -fx-border-width: 1;
+                           -fx-padding: 20;">
+
+            <HBox alignment="CENTER_LEFT">
+
+               <VBox spacing="3.0">
+
+                  <Label
+                          text="Search Customer"
+                          textFill="#172554">
+
+                     <font>
+                        <Font
+                                name="System Bold"
+                                size="20.0"/>
+                     </font>
+
+                  </Label>
+
+                  <Label
+                          text="Search by ID, name, phone, email or address"
+                          textFill="#64748B">
+
+                     <font>
+                        <Font
+                                name="System"
+                                size="12.0"/>
+                     </font>
+
+                  </Label>
+
+               </VBox>
+
+               <Region HBox.hgrow="ALWAYS"/>
+
+               <Label
+                       text="LIVE SEARCH"
+                       textFill="#2563EB">
+
+                  <font>
+                     <Font
+                             name="System Bold"
+                             size="12.0"/>
+                  </font>
+
+               </Label>
+
+            </HBox>
+
+
+            <!-- ================================================= -->
+            <!-- SEARCH FIELD -->
+            <!-- ================================================= -->
+
+            <TextField
+                    fx:id="searchField"
+                    promptText="Type customer ID, name, phone, email or address..."
+                    prefHeight="45.0"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #F8FAFC;
+                               -fx-border-color: #CBD5E1;
+                               -fx-border-radius: 8;
+                               -fx-background-radius: 8;
+                               -fx-padding: 10;
+                               -fx-font-size: 14px;"/>
+
+            <Label
+                    text="Results update automatically while you type."
+                    textFill="#64748B">
+
+               <font>
+                  <Font
+                          name="System Italic"
+                          size="11.0"/>
+               </font>
+
+            </Label>
+
+         </VBox>
+
+
+         <!-- ================================================= -->
          <!-- CUSTOMER TABLE CARD -->
-         <!-- ===================================================== -->
+         <!-- ================================================= -->
 
          <VBox
                  spacing="12.0"
@@ -146,9 +220,7 @@
 
             <!-- TABLE HEADER -->
 
-            <HBox
-                    alignment="CENTER_LEFT"
-                    spacing="10.0">
+            <HBox alignment="CENTER_LEFT">
 
                <VBox spacing="3.0">
 
@@ -157,47 +229,37 @@
                           textFill="#172554">
 
                      <font>
-
                         <Font
                                 name="System Bold"
-                                size="21.0"/>
-
+                                size="20.0"/>
                      </font>
 
                   </Label>
 
-
                   <Label
-                          text="View and manage registered customers"
+                          text="Select a customer to update, delete or make a booking"
                           textFill="#64748B">
 
                      <font>
-
                         <Font
                                 name="System"
-                                size="13.0"/>
-
+                                size="12.0"/>
                      </font>
 
                   </Label>
 
                </VBox>
 
-
-               <Region
-                       HBox.hgrow="ALWAYS"/>
-
+               <Region HBox.hgrow="ALWAYS"/>
 
                <Label
                        text="CUSTOMER RECORDS"
                        textFill="#DB2777">
 
                   <font>
-
                      <Font
                              name="System Bold"
                              size="12.0"/>
-
                   </font>
 
                </Label>
@@ -205,12 +267,14 @@
             </HBox>
 
 
+            <!-- ================================================= -->
             <!-- CUSTOMER TABLE -->
+            <!-- ================================================= -->
 
             <TableView
                     fx:id="customerTable"
-                    prefHeight="330.0"
                     VBox.vgrow="ALWAYS"
+                    prefHeight="400.0"
                     style="-fx-background-color: #FFFFFF;
                                -fx-border-color: #CBD5E1;
                                -fx-border-radius: 8;
@@ -218,203 +282,55 @@
 
                <columns>
 
+                  <!-- CUSTOMER ID -->
+
                   <TableColumn
                           fx:id="customerIdColumn"
+                          text="Customer ID"
                           minWidth="100.0"
-                          prefWidth="120.0"
-                          text="Customer ID"/>
+                          prefWidth="130.0"/>
 
+
+                  <!-- NAME -->
 
                   <TableColumn
                           fx:id="nameColumn"
+                          text="Name"
                           minWidth="150.0"
-                          prefWidth="180.0"
-                          text="Name"/>
+                          prefWidth="200.0"/>
 
+
+                  <!-- PHONE -->
 
                   <TableColumn
                           fx:id="phoneColumn"
+                          text="Phone"
                           minWidth="150.0"
-                          prefWidth="180.0"
-                          text="Phone"/>
+                          prefWidth="180.0"/>
 
+
+                  <!-- EMAIL -->
 
                   <TableColumn
                           fx:id="emailColumn"
-                          minWidth="180.0"
-                          prefWidth="220.0"
-                          text="Email"/>
+                          text="Email"
+                          minWidth="200.0"
+                          prefWidth="250.0"/>
 
+
+                  <!-- ADDRESS -->
 
                   <TableColumn
                           fx:id="addressColumn"
+                          text="Address"
                           minWidth="180.0"
-                          prefWidth="220.0"
-                          text="Address"/>
+                          prefWidth="250.0"/>
 
                </columns>
 
             </TableView>
 
          </VBox>
-
-
-         <!-- ===================================================== -->
-         <!-- CUSTOMER DETAILS -->
-         <!-- ===================================================== -->
-
-         <HBox
-                 spacing="18.0"
-                 prefHeight="190.0">
-
-
-            <!-- ================================================= -->
-            <!-- PHOTO CARD -->
-            <!-- ================================================= -->
-
-            <VBox
-                    alignment="CENTER"
-                    spacing="10.0"
-                    prefWidth="220.0"
-                    style="-fx-background-color: #FCE7F3;
-                               -fx-background-radius: 12;
-                               -fx-border-color: #F9A8D4;
-                               -fx-border-radius: 12;
-                               -fx-border-width: 1;
-                               -fx-padding: 15;">
-
-               <Label
-                       text="Customer Photo"
-                       textFill="#831843">
-
-                  <font>
-
-                     <Font
-                             name="System Bold"
-                             size="15.0"/>
-
-                  </font>
-
-               </Label>
-
-
-               <ImageView
-                       fx:id="customerImageView"
-                       fitHeight="105.0"
-                       fitWidth="105.0"
-                       pickOnBounds="true"
-                       preserveRatio="true"/>
-
-
-               <Button
-                       mnemonicParsing="false"
-                       onAction="#browseImage"
-                       prefHeight="35.0"
-                       prefWidth="130.0"
-                       text="Browse Image"
-                       style="-fx-background-color: #DB2777;
-                                   -fx-text-fill: white;
-                                   -fx-font-size: 12px;
-                                   -fx-font-weight: bold;
-                                   -fx-background-radius: 7;
-                                   -fx-cursor: hand;"/>
-
-            </VBox>
-
-
-            <!-- ================================================= -->
-            <!-- SPECIAL REQUEST CARD -->
-            <!-- ================================================= -->
-
-            <VBox
-                    spacing="10.0"
-                    HBox.hgrow="ALWAYS"
-                    style="-fx-background-color: #FFFFFF;
-                               -fx-background-radius: 12;
-                               -fx-border-color: #E2E8F0;
-                               -fx-border-radius: 12;
-                               -fx-border-width: 1;
-                               -fx-padding: 18;">
-
-               <HBox
-                       alignment="CENTER_LEFT">
-
-                  <VBox spacing="3.0">
-
-                     <Label
-                             text="Special Request"
-                             textFill="#172554">
-
-                        <font>
-
-                           <Font
-                                   name="System Bold"
-                                   size="18.0"/>
-
-                        </font>
-
-                     </Label>
-
-
-                     <Label
-                             text="Additional information for the selected customer"
-                             textFill="#64748B">
-
-                        <font>
-
-                           <Font
-                                   name="System"
-                                   size="12.0"/>
-
-                        </font>
-
-                     </Label>
-
-                  </VBox>
-
-
-                  <Region
-                          HBox.hgrow="ALWAYS"/>
-
-               </HBox>
-
-
-               <TextArea
-                       fx:id="specialRequestTextArea"
-                       prefHeight="100.0"
-                       prefWidth="500.0"
-                       promptText="Enter special request..."
-                       VBox.vgrow="ALWAYS"
-                       wrapText="true"
-                       style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-font-size: 13px;"/>
-
-
-               <HBox
-                       alignment="CENTER_RIGHT">
-
-                  <Button
-                          fx:id="clearSpecialRequestButton"
-                          mnemonicParsing="false"
-                          onAction="#clearSpecialRequest"
-                          prefHeight="35.0"
-                          prefWidth="100.0"
-                          text="Clear"
-                          style="-fx-background-color: #E2E8F0;
-                                       -fx-text-fill: #334155;
-                                       -fx-font-size: 12px;
-                                       -fx-font-weight: bold;
-                                       -fx-background-radius: 7;
-                                       -fx-cursor: hand;"/>
-
-               </HBox>
-
-            </VBox>
-
-         </HBox>
 
       </VBox>
 
@@ -436,27 +352,26 @@
                        -fx-border-width: 1 0 0 0;">
 
          <padding>
-
             <Insets
                     top="12.0"
                     right="30.0"
                     bottom="12.0"
                     left="30.0"/>
-
          </padding>
 
 
-         <Region
-                 HBox.hgrow="ALWAYS"/>
+         <Region HBox.hgrow="ALWAYS"/>
 
 
+         <!-- ================================================= -->
          <!-- ADD CUSTOMER -->
+         <!-- ================================================= -->
 
          <Button
                  mnemonicParsing="false"
                  onAction="#addCustomer"
                  prefHeight="42.0"
-                 prefWidth="130.0"
+                 prefWidth="145.0"
                  text="Add Customer"
                  style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
@@ -466,13 +381,15 @@
                            -fx-cursor: hand;"/>
 
 
-         <!-- UPDATE -->
+         <!-- ================================================= -->
+         <!-- UPDATE CUSTOMER -->
+         <!-- ================================================= -->
 
          <Button
                  mnemonicParsing="false"
                  onAction="#updateCustomer"
                  prefHeight="42.0"
-                 prefWidth="110.0"
+                 prefWidth="115.0"
                  text="Update"
                  style="-fx-background-color: #16A34A;
                            -fx-text-fill: white;
@@ -482,7 +399,9 @@
                            -fx-cursor: hand;"/>
 
 
-         <!-- DELETE -->
+         <!-- ================================================= -->
+         <!-- DELETE CUSTOMER -->
+         <!-- ================================================= -->
 
          <Button
                  mnemonicParsing="false"
@@ -498,14 +417,16 @@
                            -fx-cursor: hand;"/>
 
 
-         <!-- BOOK SELECTED CUSTOMER -->
+         <!-- ================================================= -->
+         <!-- BOOK CUSTOMER -->
+         <!-- ================================================= -->
 
          <Button
                  fx:id="bookSelectedCustomerButton"
                  mnemonicParsing="false"
                  onAction="#bookSelectedCustomer"
                  prefHeight="42.0"
-                 prefWidth="180.0"
+                 prefWidth="190.0"
                  text="Book Selected Customer"
                  style="-fx-background-color: #DB2777;
                            -fx-text-fill: white;
@@ -515,7 +436,9 @@
                            -fx-cursor: hand;"/>
 
 
+         <!-- ================================================= -->
          <!-- BACK -->
+         <!-- ================================================= -->
 
          <Button
                  mnemonicParsing="false"
