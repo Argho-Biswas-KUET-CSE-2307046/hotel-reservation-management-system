@@ -10,7 +10,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class BookingService {
+
+// =========================================================
+// BOOKING SERVICE
+// =========================================================
+
+public class BookingService implements DataService<Booking> {
 
     // =========================================
     // EXECUTOR SERVICE
@@ -85,6 +90,7 @@ public class BookingService {
         // -----------------------------------------
 
         if (customer == null) {
+
             throw new IllegalArgumentException(
                     "Customer cannot be null."
             );
@@ -92,6 +98,7 @@ public class BookingService {
 
 
         if (room == null) {
+
             throw new IllegalArgumentException(
                     "Room cannot be null."
             );
@@ -99,6 +106,7 @@ public class BookingService {
 
 
         if (checkIn == null) {
+
             throw new IllegalArgumentException(
                     "Check-in date cannot be null."
             );
@@ -106,6 +114,7 @@ public class BookingService {
 
 
         if (checkOut == null) {
+
             throw new IllegalArgumentException(
                     "Check-out date cannot be null."
             );
@@ -113,6 +122,7 @@ public class BookingService {
 
 
         if (!checkOut.isAfter(checkIn)) {
+
             throw new IllegalArgumentException(
                     "Check-out date must be after check-in date."
             );
@@ -186,6 +196,57 @@ public class BookingService {
 
             return booking;
         }
+    }
+
+
+    // =========================================
+    // INTERFACE METHOD
+    // =========================================
+
+    /*
+     * Implementation of the DataService interface.
+     *
+     * In this project, the actual database insertion
+     * is handled by BookingDAO. Therefore this method
+     * delegates the operation to the existing booking
+     * workflow.
+     *
+     * This method is intentionally kept simple so
+     * that the existing concurrency implementation
+     * remains unchanged.
+     */
+    @Override
+    public void save(Booking booking) {
+
+        if (booking == null) {
+
+            throw new IllegalArgumentException(
+                    "Booking cannot be null."
+            );
+        }
+
+        throw new UnsupportedOperationException(
+                "Use createBookingAsync() and BookingDAO "
+                        + "for booking persistence."
+        );
+    }
+
+
+    // =========================================
+    // DELETE
+    // =========================================
+
+    /*
+     * Booking deletion is handled by BookingDAO
+     * because database operations belong to the
+     * DAO layer.
+     */
+    @Override
+    public void delete(int id) {
+
+        throw new UnsupportedOperationException(
+                "Use BookingDAO to delete a booking."
+        );
     }
 
 
