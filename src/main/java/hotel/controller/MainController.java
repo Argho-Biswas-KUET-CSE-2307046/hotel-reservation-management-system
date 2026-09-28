@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 public class MainController {
 
-    // =========================
+    // =========================================================
     // RESPONSIVE BUTTONS
-    // =========================
+    // =========================================================
 
     @FXML
     private Button refreshDataButton;
@@ -22,14 +22,25 @@ public class MainController {
     private Button logoutButton;
 
 
-    // =========================
+    // =========================================================
     // INITIALIZE
-    // =========================
+    // =========================================================
 
     @FXML
     private void initialize() {
 
-        // Make Refresh Data button responsive
+        /*
+         * =====================================================
+         * RESPONSIVE REFRESH BUTTON
+         * =====================================================
+         *
+         * The button width is connected to the Scene width.
+         * The button height is connected to the Scene height.
+         *
+         * Therefore, when the window size changes,
+         * the button size changes automatically.
+         */
+
         refreshDataButton.sceneProperty().addListener(
                 (observable, oldScene, newScene) -> {
 
@@ -50,7 +61,15 @@ public class MainController {
         );
 
 
-        // Make Logout button responsive
+        /*
+         * =====================================================
+         * RESPONSIVE LOGOUT BUTTON
+         * =====================================================
+         *
+         * The button width is connected to the Scene width.
+         * The button height is connected to the Scene height.
+         */
+
         logoutButton.sceneProperty().addListener(
                 (observable, oldScene, newScene) -> {
 
@@ -72,9 +91,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // ROOM MANAGEMENT
-    // =========================
+    // =========================================================
 
     @FXML
     private void openRoomManagement() {
@@ -97,6 +116,10 @@ public class MainController {
             stage.setWidth(900);
             stage.setHeight(600);
 
+            // Allow window resizing
+            stage.setMinWidth(700);
+            stage.setMinHeight(500);
+
             stage.show();
 
         } catch (Exception e) {
@@ -111,9 +134,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // CUSTOMER MANAGEMENT
-    // =========================
+    // =========================================================
 
     @FXML
     private void openCustomerManagement() {
@@ -136,6 +159,10 @@ public class MainController {
             stage.setWidth(900);
             stage.setHeight(650);
 
+            // Allow window resizing
+            stage.setMinWidth(700);
+            stage.setMinHeight(550);
+
             stage.show();
 
         } catch (Exception e) {
@@ -150,9 +177,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // BOOKING MANAGEMENT
-    // =========================
+    // =========================================================
 
     @FXML
     private void openBooking() {
@@ -175,6 +202,10 @@ public class MainController {
             stage.setWidth(900);
             stage.setHeight(700);
 
+            // Allow window resizing
+            stage.setMinWidth(700);
+            stage.setMinHeight(550);
+
             stage.show();
 
         } catch (Exception e) {
@@ -189,9 +220,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // BOOKING HISTORY
-    // =========================
+    // =========================================================
 
     @FXML
     private void openBookingHistory() {
@@ -214,6 +245,10 @@ public class MainController {
             stage.setWidth(900);
             stage.setHeight(600);
 
+            // Allow window resizing
+            stage.setMinWidth(700);
+            stage.setMinHeight(500);
+
             stage.show();
 
         } catch (Exception e) {
@@ -228,9 +263,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // FINANCE & REPORTS
-    // =========================
+    // =========================================================
 
     @FXML
     private void openFinance() {
@@ -287,9 +322,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // WEATHER INFORMATION
-    // =========================
+    // =========================================================
 
     @FXML
     private void openWeather() {
@@ -329,9 +364,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // MENU BAR - NEW
-    // =========================
+    // =========================================================
 
     @FXML
     private void newAction() {
@@ -340,9 +375,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // MENU BAR - OPEN
-    // =========================
+    // =========================================================
 
     @FXML
     private void openAction() {
@@ -354,9 +389,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // REFRESH DATA
-    // =========================
+    // =========================================================
 
     @FXML
     private void refreshData() {
@@ -368,9 +403,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // LOGOUT
-    // =========================
+    // =========================================================
 
     @FXML
     private void logout(ActionEvent event) {
@@ -424,9 +459,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // EXIT APPLICATION
-    // =========================
+    // =========================================================
 
     @FXML
     private void exitApplication() {
@@ -435,9 +470,9 @@ public class MainController {
     }
 
 
-    // =========================
+    // =========================================================
     // COMMON MESSAGE
-    // =========================
+    // =========================================================
 
     private void showMessage(
             String title,

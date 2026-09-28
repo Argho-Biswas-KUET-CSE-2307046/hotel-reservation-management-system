@@ -1106,9 +1106,15 @@ public class LoginController {
 
             mainStage.setScene(scene);
 
-            mainStage.setWidth(600);
 
-            mainStage.setHeight(600);
+            /*
+             * Open the Main Dashboard maximized.
+             *
+             * This replaces the previous fixed
+             * 600 x 600 window size.
+             */
+            mainStage.setMaximized(true);
+
 
             mainStage.show();
 

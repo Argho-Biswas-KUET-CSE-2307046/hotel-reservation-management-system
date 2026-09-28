@@ -16,6 +16,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -27,10 +28,13 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.BookingController"
+
         prefWidth="1100.0"
         prefHeight="750.0"
-        minWidth="900.0"
+
+        minWidth="850.0"
         minHeight="650.0"
+
         style="-fx-background-color: #F5F7FB;">
 
     <!-- ========================================================= -->
@@ -39,12 +43,21 @@
 
     <top>
 
-        <VBox spacing="0.0">
+        <VBox
+                spacing="0.0"
+                fillWidth="true">
+
+            <!-- HEADER -->
 
             <HBox
                     alignment="CENTER_LEFT"
                     spacing="15.0"
+
+                    minHeight="75.0"
                     prefHeight="90.0"
+
+                    maxWidth="Infinity"
+
                     style="-fx-background-color: #FFFFFF;
                            -fx-border-color: #E2E8F0;
                            -fx-border-width: 0 0 1 0;">
@@ -60,11 +73,17 @@
                 </padding>
 
 
-                <VBox spacing="3.0">
+                <!-- TITLE -->
+
+                <VBox
+                        spacing="3.0"
+                        maxWidth="Infinity"
+                        HBox.hgrow="ALWAYS">
 
                     <Label
                             text="BOOKING MANAGEMENT"
-                            textFill="#1E3A8A">
+                            textFill="#1E3A8A"
+                            wrapText="true">
 
                         <font>
 
@@ -79,7 +98,8 @@
 
                     <Label
                             text="Create and manage hotel reservations"
-                            textFill="#64748B">
+                            textFill="#64748B"
+                            wrapText="true">
 
                         <font>
 
@@ -95,16 +115,21 @@
 
 
                 <Region
+                        minWidth="10.0"
                         HBox.hgrow="ALWAYS"/>
 
 
+                <!-- SELECTED CUSTOMER -->
+
                 <VBox
                         alignment="CENTER_RIGHT"
-                        spacing="5.0">
+                        spacing="5.0"
+                        maxWidth="300.0">
 
                     <Label
                             text="SELECTED CUSTOMER"
-                            textFill="#64748B">
+                            textFill="#64748B"
+                            wrapText="true">
 
                         <font>
 
@@ -120,7 +145,8 @@
                     <Label
                             fx:id="selectedCustomerLabel"
                             text="No customer selected"
-                            textFill="#2563EB">
+                            textFill="#2563EB"
+                            wrapText="true">
 
                         <font>
 
@@ -137,12 +163,19 @@
             </HBox>
 
 
+            <!-- ===================================================== -->
             <!-- BOOKING PROGRESS -->
+            <!-- ===================================================== -->
 
             <HBox
                     alignment="CENTER_LEFT"
                     spacing="12.0"
-                    prefHeight="55.0"
+
+                    minHeight="55.0"
+                    prefHeight="60.0"
+
+                    maxWidth="Infinity"
+
                     style="-fx-background-color: #FFFFFF;">
 
                 <padding>
@@ -171,10 +204,19 @@
                 </Label>
 
 
+                <!-- RESPONSIVE PROGRESS BAR -->
+
                 <ProgressBar
                         fx:id="bookingProgressBar"
+
+                        progress="0.0"
+
                         prefWidth="350.0"
-                        progress="0.0"/>
+                        minWidth="180.0"
+
+                        maxWidth="600.0"
+
+                        HBox.hgrow="ALWAYS"/>
 
             </HBox>
 
@@ -192,8 +234,12 @@
         <ScrollPane
                 fitToWidth="true"
                 fitToHeight="true"
+
                 hbarPolicy="NEVER"
                 vbarPolicy="AS_NEEDED"
+
+                pannable="true"
+
                 style="-fx-background-color: #F5F7FB;
                        -fx-background: #F5F7FB;">
 
@@ -201,6 +247,12 @@
 
                 <VBox
                         spacing="18.0"
+
+                        fillWidth="true"
+
+                        maxWidth="Infinity"
+                        maxHeight="Infinity"
+
                         style="-fx-background-color: #F5F7FB;">
 
                     <padding>
@@ -220,6 +272,11 @@
 
                     <VBox
                             spacing="12.0"
+
+                            fillWidth="true"
+
+                            maxWidth="Infinity"
+
                             style="-fx-background-color: #DBEAFE;
                                    -fx-background-radius: 12;
                                    -fx-border-color: #93C5FD;
@@ -229,7 +286,8 @@
 
                         <Label
                                 text="Room Selection"
-                                textFill="#1E3A8A">
+                                textFill="#1E3A8A"
+                                wrapText="true">
 
                             <font>
 
@@ -242,14 +300,19 @@
                         </Label>
 
 
+                        <!-- RESPONSIVE ROOM FILTER -->
+
                         <HBox
                                 alignment="CENTER_LEFT"
-                                spacing="15.0">
+                                spacing="15.0"
+
+                                fillHeight="true">
 
                             <Label
                                     fx:id="roomPriceLabel"
                                     text="Room Price Range"
-                                    textFill="#334155">
+                                    textFill="#334155"
+                                    wrapText="true">
 
                                 <font>
 
@@ -264,10 +327,15 @@
 
                             <Slider
                                     fx:id="roomPriceSlider"
+
                                     min="1000.0"
                                     max="5000.0"
                                     value="2500.0"
+
                                     prefWidth="350.0"
+                                    minWidth="180.0"
+                                    maxWidth="600.0"
+
                                     HBox.hgrow="ALWAYS"/>
 
 
@@ -288,7 +356,9 @@
 
                             <Spinner
                                     fx:id="guestSpinner"
-                                    prefWidth="100.0"/>
+
+                                    prefWidth="100.0"
+                                    minWidth="80.0"/>
 
                         </HBox>
 
@@ -301,6 +371,11 @@
 
                     <VBox
                             spacing="15.0"
+
+                            fillWidth="true"
+
+                            maxWidth="Infinity"
+
                             style="-fx-background-color: #FFFFFF;
                                    -fx-background-radius: 12;
                                    -fx-border-color: #E2E8F0;
@@ -308,11 +383,14 @@
                                    -fx-border-width: 1;
                                    -fx-padding: 22;">
 
-                        <VBox spacing="3.0">
+                        <VBox
+                                spacing="3.0"
+                                maxWidth="Infinity">
 
                             <Label
                                     text="Reservation Details"
-                                    textFill="#172554">
+                                    textFill="#172554"
+                                    wrapText="true">
 
                                 <font>
 
@@ -327,7 +405,8 @@
 
                             <Label
                                     text="Select the customer, room and reservation preferences."
-                                    textFill="#64748B">
+                                    textFill="#64748B"
+                                    wrapText="true">
 
                                 <font>
 
@@ -342,9 +421,15 @@
                         </VBox>
 
 
+                        <!-- ================================================= -->
+                        <!-- RESPONSIVE FORM GRID -->
+                        <!-- ================================================= -->
+
                         <GridPane
                                 hgap="20.0"
-                                vgap="14.0">
+                                vgap="14.0"
+
+                                maxWidth="Infinity">
 
                             <padding>
 
@@ -357,60 +442,82 @@
                             </padding>
 
 
+                            <!-- RESPONSIVE COLUMNS -->
+
                             <columnConstraints>
 
+                                <!-- LABEL COLUMN -->
+
                                 <ColumnConstraints
-                                        halignment="RIGHT"
+                                        percentWidth="20.0"
                                         minWidth="120.0"
-                                        prefWidth="130.0"/>
+                                        hgrow="NEVER"
+                                        halignment="RIGHT"/>
+
+
+                                <!-- CONTROL COLUMN -->
 
                                 <ColumnConstraints
-                                        hgrow="SOMETIMES"
-                                        minWidth="180.0"
-                                        prefWidth="240.0"/>
+                                        percentWidth="40.0"
+                                        minWidth="200.0"
+                                        hgrow="ALWAYS"/>
+
+
+                                <!-- EXTRA SPACE COLUMN -->
 
                                 <ColumnConstraints
-                                        hgrow="SOMETIMES"
-                                        minWidth="180.0"
-                                        prefWidth="240.0"/>
+                                        percentWidth="40.0"
+                                        minWidth="150.0"
+                                        hgrow="ALWAYS"/>
 
                             </columnConstraints>
 
+
+                            <!-- RESPONSIVE ROWS -->
 
                             <rowConstraints>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                                 <RowConstraints
                                         minHeight="40.0"
-                                        prefHeight="42.0"/>
+                                        prefHeight="42.0"
+                                        vgrow="SOMETIMES"/>
 
                             </rowConstraints>
 
 
+                            <!-- ================================================= -->
                             <!-- CUSTOMER -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Customer:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="0">
 
                                 <font>
@@ -426,17 +533,23 @@
 
                             <ComboBox
                                     fx:id="customerComboBox"
+
                                     prefWidth="240.0"
+
                                     maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="0"/>
 
 
+                            <!-- ================================================= -->
                             <!-- ROOM -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Room:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="1">
 
                                 <font>
@@ -452,17 +565,23 @@
 
                             <ComboBox
                                     fx:id="roomComboBox"
+
                                     prefWidth="240.0"
+
                                     maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="1"/>
 
 
+                            <!-- ================================================= -->
                             <!-- CHECK IN -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Check-in:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="2">
 
                                 <font>
@@ -478,17 +597,23 @@
 
                             <DatePicker
                                     fx:id="checkInDatePicker"
+
                                     prefWidth="240.0"
+
                                     maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="2"/>
 
 
+                            <!-- ================================================= -->
                             <!-- CHECK OUT -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Check-out:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="3">
 
                                 <font>
@@ -504,17 +629,23 @@
 
                             <DatePicker
                                     fx:id="checkOutDatePicker"
+
                                     prefWidth="240.0"
+
                                     maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="3"/>
 
 
+                            <!-- ================================================= -->
                             <!-- BOOKING TYPE -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Booking Type:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="4">
 
                                 <font>
@@ -531,12 +662,17 @@
                             <HBox
                                     alignment="CENTER_LEFT"
                                     spacing="25.0"
+
+                                    maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="4">
 
                                 <RadioButton
                                         fx:id="regularRadioButton"
+
                                         mnemonicParsing="false"
+
                                         text="Regular"
                                         textFill="#334155">
 
@@ -552,19 +688,25 @@
 
                                 <RadioButton
                                         fx:id="vipRadioButton"
+
                                         mnemonicParsing="false"
+
                                         text="VIP"
                                         textFill="#BE185D"
+
                                         toggleGroup="$bookingTypeGroup"/>
 
                             </HBox>
 
 
+                            <!-- ================================================= -->
                             <!-- EXTRA SERVICES -->
+                            <!-- ================================================= -->
 
                             <Label
                                     text="Extra Services:"
                                     textFill="#334155"
+
                                     GridPane.rowIndex="5">
 
                                 <font>
@@ -581,19 +723,26 @@
                             <HBox
                                     alignment="CENTER_LEFT"
                                     spacing="25.0"
+
+                                    maxWidth="Infinity"
+
                                     GridPane.columnIndex="1"
                                     GridPane.rowIndex="5">
 
                                 <CheckBox
                                         fx:id="breakfastCheckBox"
+
                                         mnemonicParsing="false"
+
                                         text="Breakfast"
                                         textFill="#15803D"/>
 
 
                                 <CheckBox
                                         fx:id="airportPickupCheckBox"
+
                                         mnemonicParsing="false"
+
                                         text="Airport Pickup"
                                         textFill="#2563EB"/>
 
@@ -610,6 +759,16 @@
 
                     <VBox
                             spacing="12.0"
+
+                            fillWidth="true"
+
+                            VBox.vgrow="ALWAYS"
+
+                            maxWidth="Infinity"
+                            maxHeight="Infinity"
+
+                            minHeight="350.0"
+
                             style="-fx-background-color: #FFFFFF;
                                    -fx-background-radius: 12;
                                    -fx-border-color: #E2E8F0;
@@ -617,14 +776,20 @@
                                    -fx-border-width: 1;
                                    -fx-padding: 20;">
 
-                        <HBox
-                                alignment="CENTER_LEFT">
+                        <!-- TABLE HEADER -->
 
-                            <VBox spacing="3.0">
+                        <HBox
+                                alignment="CENTER_LEFT"
+                                spacing="10.0">
+
+                            <VBox
+                                    spacing="3.0"
+                                    maxWidth="Infinity">
 
                                 <Label
                                         text="Booking Records"
-                                        textFill="#172554">
+                                        textFill="#172554"
+                                        wrapText="true">
 
                                     <font>
 
@@ -639,7 +804,8 @@
 
                                 <Label
                                         text="View current reservations"
-                                        textFill="#64748B">
+                                        textFill="#64748B"
+                                        wrapText="true">
 
                                     <font>
 
@@ -655,6 +821,7 @@
 
 
                             <Region
+                                    minWidth="10.0"
                                     HBox.hgrow="ALWAYS"/>
 
 
@@ -675,10 +842,23 @@
                         </HBox>
 
 
+                        <!-- ================================================= -->
+                        <!-- RESPONSIVE BOOKING TABLE -->
+                        <!-- ================================================= -->
+
                         <TableView
                                 fx:id="bookingTable"
+
                                 prefHeight="280.0"
+
                                 minHeight="220.0"
+                                minWidth="700.0"
+
+                                maxWidth="Infinity"
+                                maxHeight="Infinity"
+
+                                VBox.vgrow="ALWAYS"
+
                                 style="-fx-background-color: #FFFFFF;
                                        -fx-border-color: #CBD5E1;
                                        -fx-border-radius: 8;
@@ -688,36 +868,46 @@
 
                                 <TableColumn
                                         fx:id="bookingIdColumn"
+
                                         minWidth="80.0"
                                         prefWidth="100.0"
+
                                         text="Booking ID"/>
 
 
                                 <TableColumn
                                         fx:id="customerColumn"
-                                        minWidth="150.0"
+
+                                        minWidth="140.0"
                                         prefWidth="180.0"
+
                                         text="Customer"/>
 
 
                                 <TableColumn
                                         fx:id="roomColumn"
-                                        minWidth="130.0"
+
+                                        minWidth="110.0"
                                         prefWidth="160.0"
+
                                         text="Room"/>
 
 
                                 <TableColumn
                                         fx:id="checkInColumn"
-                                        minWidth="130.0"
+
+                                        minWidth="120.0"
                                         prefWidth="160.0"
+
                                         text="Check In"/>
 
 
                                 <TableColumn
                                         fx:id="checkOutColumn"
-                                        minWidth="130.0"
+
+                                        minWidth="120.0"
                                         prefWidth="160.0"
+
                                         text="Check Out"/>
 
                             </columns>
@@ -736,15 +926,22 @@
 
 
     <!-- ========================================================= -->
-    <!-- BOTTOM ACTION BAR -->
+    <!-- BOTTOM RESPONSIVE ACTION BAR -->
     <!-- ========================================================= -->
 
     <bottom>
 
-        <HBox
+        <FlowPane
                 alignment="CENTER_RIGHT"
-                spacing="12.0"
+
+                hgap="12.0"
+                vgap="10.0"
+
                 prefHeight="75.0"
+                minHeight="65.0"
+
+                prefWrapLength="700.0"
+
                 style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 1 0 0 0;">
@@ -760,18 +957,19 @@
             </padding>
 
 
-            <Region
-                    HBox.hgrow="ALWAYS"/>
-
-
             <!-- ADD BOOKING -->
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#addBooking"
+
                     prefHeight="42.0"
+                    minWidth="110.0"
                     prefWidth="140.0"
+
                     text="Add Booking"
+
                     style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -784,10 +982,15 @@
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#updateBooking"
+
                     prefHeight="42.0"
+                    minWidth="100.0"
                     prefWidth="120.0"
+
                     text="Update"
+
                     style="-fx-background-color: #16A34A;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -800,10 +1003,15 @@
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#deleteBooking"
+
                     prefHeight="42.0"
+                    minWidth="100.0"
                     prefWidth="120.0"
+
                     text="Delete"
+
                     style="-fx-background-color: #DC2626;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -816,10 +1024,15 @@
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#backToMain"
+
                     prefHeight="42.0"
+                    minWidth="80.0"
                     prefWidth="100.0"
+
                     text="Back"
+
                     style="-fx-background-color: #E2E8F0;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;
@@ -827,7 +1040,7 @@
                            -fx-background-radius: 8;
                            -fx-cursor: hand;"/>
 
-        </HBox>
+        </FlowPane>
 
     </bottom>
 

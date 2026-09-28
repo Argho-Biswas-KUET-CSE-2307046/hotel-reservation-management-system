@@ -3,6 +3,7 @@ package hotel.controller;
 import hotel.database.BookingDAO;
 import hotel.model.Booking;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
 import javafx.collections.FXCollections;
@@ -29,8 +30,7 @@ public class BookingHistoryController {
     // DATABASE
     // =========================================================
 
-    private final BookingDAO bookingDAO =
-            new BookingDAO();
+    private BookingDAO bookingDAO;
 
 
     // =========================================================
@@ -77,12 +77,33 @@ public class BookingHistoryController {
     public void initialize() {
 
         // ---------------------------------------------------------
+        // CREATE DATABASE ACCESS OBJECT
+        // ---------------------------------------------------------
+
+        try {
+
+            bookingDAO = new BookingDAO();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showError(
+                    "Database Error",
+                    "Could not connect to the booking database."
+            );
+
+            return;
+        }
+
+
+        // ---------------------------------------------------------
         // BOOKING ID COLUMN
         // ---------------------------------------------------------
 
         bookingIdColumn.setCellValueFactory(
                 cellData ->
-                        new javafx.beans.property.ReadOnlyObjectWrapper<>(
+                        new ReadOnlyObjectWrapper<>(
                                 cellData.getValue().getBookingId()
                         )
         );
@@ -91,13 +112,6 @@ public class BookingHistoryController {
         // ---------------------------------------------------------
         // CUSTOMER COLUMN
         // ---------------------------------------------------------
-        // Display only the customer's name.
-        // Instead of:
-        // Customer{customerId=1, name='Argho', ...}
-        //
-        // It will display:
-        // Argho
-        // ---------------------------------------------------------
 
         customerColumn.setCellValueFactory(
                 cellData -> {
@@ -105,7 +119,15 @@ public class BookingHistoryController {
                     Booking booking =
                             cellData.getValue();
 
-                    if (booking.getCustomer() == null) {
+                    if (booking == null ||
+                            booking.getCustomer() == null) {
+
+                        return new ReadOnlyStringWrapper(
+                                "N/A"
+                        );
+                    }
+
+                    if (booking.getCustomer().getName() == null) {
 
                         return new ReadOnlyStringWrapper(
                                 "N/A"
@@ -122,11 +144,6 @@ public class BookingHistoryController {
         // ---------------------------------------------------------
         // ROOM COLUMN
         // ---------------------------------------------------------
-        // Display room number and room type.
-        //
-        // Example:
-        // 101 - Deluxe
-        // ---------------------------------------------------------
 
         roomColumn.setCellValueFactory(
                 cellData -> {
@@ -134,7 +151,8 @@ public class BookingHistoryController {
                     Booking booking =
                             cellData.getValue();
 
-                    if (booking.getRoom() == null) {
+                    if (booking == null ||
+                            booking.getRoom() == null) {
 
                         return new ReadOnlyStringWrapper(
                                 "N/A"
@@ -160,7 +178,8 @@ public class BookingHistoryController {
                     Booking booking =
                             cellData.getValue();
 
-                    if (booking.getCheckIn() == null) {
+                    if (booking == null ||
+                            booking.getCheckIn() == null) {
 
                         return new ReadOnlyStringWrapper(
                                 "N/A"
@@ -184,7 +203,8 @@ public class BookingHistoryController {
                     Booking booking =
                             cellData.getValue();
 
-                    if (booking.getCheckOut() == null) {
+                    if (booking == null ||
+                            booking.getCheckOut() == null) {
 
                         return new ReadOnlyStringWrapper(
                                 "N/A"
@@ -208,7 +228,7 @@ public class BookingHistoryController {
 
 
         // ---------------------------------------------------------
-        // LOAD BOOKINGS FROM SQLITE
+        // LOAD BOOKING HISTORY
         // ---------------------------------------------------------
 
         loadBookingHistory();
@@ -221,30 +241,39 @@ public class BookingHistoryController {
 
     private void loadBookingHistory() {
 
+        if (bookingDAO == null) {
+
+            return;
+        }
+
+
         try {
 
-            // ---------------------------------------------------------
-            // GET BOOKINGS FROM SQLITE
-            // ---------------------------------------------------------
+            // -----------------------------------------------------
+            // GET BOOKINGS FROM DATABASE
+            // -----------------------------------------------------
 
             List<Booking> bookings =
                     bookingDAO.getAllBookings();
 
 
-            // ---------------------------------------------------------
+            // -----------------------------------------------------
             // CLEAR OLD DATA
-            // ---------------------------------------------------------
+            // -----------------------------------------------------
 
             bookingHistoryList.clear();
 
 
-            // ---------------------------------------------------------
-            // ADD DATABASE BOOKINGS
-            // ---------------------------------------------------------
+            // -----------------------------------------------------
+            // ADD BOOKINGS
+            // -----------------------------------------------------
 
-            bookingHistoryList.addAll(
-                    bookings
-            );
+            if (bookings != null) {
+
+                bookingHistoryList.addAll(
+                        bookings
+                );
+            }
 
         } catch (Exception e) {
 
@@ -276,10 +305,18 @@ public class BookingHistoryController {
     @FXML
     private void backToMain() {
 
+        if (bookingHistoryTable == null ||
+                bookingHistoryTable.getScene() == null) {
+
+            return;
+        }
+
+
         Stage stage =
                 (Stage) bookingHistoryTable
                         .getScene()
                         .getWindow();
+
 
         stage.close();
     }

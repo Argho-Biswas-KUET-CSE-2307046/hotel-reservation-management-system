@@ -3,10 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -17,10 +20,13 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.AddCustomerController"
+
         prefWidth="850.0"
         prefHeight="650.0"
-        minWidth="750.0"
+
+        minWidth="700.0"
         minHeight="550.0"
+
         style="-fx-background-color: #F5F7FB;">
 
     <!-- ========================================================= -->
@@ -31,57 +37,80 @@
 
         <HBox
                 alignment="CENTER_LEFT"
+                spacing="15.0"
+
+                minHeight="75.0"
                 prefHeight="85.0"
+
                 style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 0 0 1 0;">
 
             <padding>
+
                 <Insets
                         top="15.0"
                         right="30.0"
                         bottom="15.0"
                         left="30.0"/>
+
             </padding>
 
-            <VBox spacing="3.0">
+
+            <VBox
+                    spacing="3.0"
+                    maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS">
 
                 <Label
                         text="ADD NEW CUSTOMER"
-                        textFill="#1E3A8A">
+                        textFill="#1E3A8A"
+                        wrapText="true">
 
                     <font>
+
                         <Font
                                 name="System Bold"
                                 size="25.0"/>
+
                     </font>
 
                 </Label>
 
+
                 <Label
                         text="Enter customer information"
-                        textFill="#64748B">
+                        textFill="#64748B"
+                        wrapText="true">
 
                     <font>
+
                         <Font
                                 name="System"
                                 size="13.0"/>
+
                     </font>
 
                 </Label>
 
             </VBox>
 
-            <Region HBox.hgrow="ALWAYS"/>
+
+            <Region
+                    minWidth="10.0"
+                    HBox.hgrow="ALWAYS"/>
+
 
             <Label
                     text="NEW CUSTOMER"
                     textFill="#2563EB">
 
                 <font>
+
                     <Font
                             name="System Bold"
                             size="13.0"/>
+
                 </font>
 
             </Label>
@@ -97,294 +126,431 @@
 
     <center>
 
-        <VBox
-                spacing="18.0"
-                VBox.vgrow="ALWAYS">
+        <ScrollPane
+                fitToWidth="true"
+                fitToHeight="true"
 
-            <padding>
-                <Insets
-                        top="22.0"
-                        right="30.0"
-                        bottom="22.0"
-                        left="30.0"/>
-            </padding>
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
 
+                style="-fx-background-color: #F5F7FB;
+                       -fx-background: #F5F7FB;">
 
-            <!-- ================================================= -->
-            <!-- CUSTOMER INFORMATION CARD -->
-            <!-- ================================================= -->
+            <content>
 
-            <VBox
-                    spacing="15.0"
-                    VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: #FFFFFF;
-                           -fx-background-radius: 12;
-                           -fx-border-color: #E2E8F0;
-                           -fx-border-radius: 12;
-                           -fx-border-width: 1;
-                           -fx-padding: 20;">
-
-                <Label
-                        text="Customer Information"
-                        textFill="#172554">
-
-                    <font>
-                        <Font
-                                name="System Bold"
-                                size="20.0"/>
-                    </font>
-
-                </Label>
-
-
-                <!-- ================================================= -->
-                <!-- INPUT FIELDS -->
-                <!-- ================================================= -->
-
-                <GridPane
-                        hgap="15.0"
-                        vgap="14.0">
-
-                    <!-- CUSTOMER ID -->
-
-                    <Label
-                            text="Customer ID:"
-                            textFill="#334155"
-                            GridPane.rowIndex="0"
-                            GridPane.columnIndex="0">
-
-                        <font>
-                            <Font
-                                    name="System Bold"
-                                    size="13.0"/>
-                        </font>
-
-                    </Label>
-
-                    <TextField
-                            fx:id="customerIdField"
-                            promptText="Enter customer ID"
-                            GridPane.rowIndex="0"
-                            GridPane.columnIndex="1"
-                            style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-padding: 9;
-                                   -fx-font-size: 13px;"/>
-
-
-                    <!-- NAME -->
-
-                    <Label
-                            text="Name:"
-                            textFill="#334155"
-                            GridPane.rowIndex="0"
-                            GridPane.columnIndex="2">
-
-                        <font>
-                            <Font
-                                    name="System Bold"
-                                    size="13.0"/>
-                        </font>
-
-                    </Label>
-
-                    <TextField
-                            fx:id="nameField"
-                            promptText="Enter customer name"
-                            GridPane.rowIndex="0"
-                            GridPane.columnIndex="3"
-                            style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-padding: 9;
-                                   -fx-font-size: 13px;"/>
-
-
-                    <!-- PHONE -->
-
-                    <Label
-                            text="Phone:"
-                            textFill="#334155"
-                            GridPane.rowIndex="1"
-                            GridPane.columnIndex="0">
-
-                        <font>
-                            <Font
-                                    name="System Bold"
-                                    size="13.0"/>
-                        </font>
-
-                    </Label>
-
-                    <TextField
-                            fx:id="phoneField"
-                            promptText="Enter phone number"
-                            GridPane.rowIndex="1"
-                            GridPane.columnIndex="1"
-                            style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-padding: 9;
-                                   -fx-font-size: 13px;"/>
-
-
-                    <!-- EMAIL -->
-
-                    <Label
-                            text="Email:"
-                            textFill="#334155"
-                            GridPane.rowIndex="1"
-                            GridPane.columnIndex="2">
-
-                        <font>
-                            <Font
-                                    name="System Bold"
-                                    size="13.0"/>
-                        </font>
-
-                    </Label>
-
-                    <TextField
-                            fx:id="emailField"
-                            promptText="Enter email address"
-                            GridPane.rowIndex="1"
-                            GridPane.columnIndex="3"
-                            style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-padding: 9;
-                                   -fx-font-size: 13px;"/>
-
-
-                    <!-- ADDRESS -->
-
-                    <Label
-                            text="Address:"
-                            textFill="#334155"
-                            GridPane.rowIndex="2"
-                            GridPane.columnIndex="0">
-
-                        <font>
-                            <Font
-                                    name="System Bold"
-                                    size="13.0"/>
-                        </font>
-
-                    </Label>
-
-                    <TextField
-                            fx:id="addressField"
-                            promptText="Enter customer address"
-                            GridPane.rowIndex="2"
-                            GridPane.columnIndex="1"
-                            GridPane.columnSpan="3"
-                            maxWidth="Infinity"
-                            style="-fx-background-color: #F8FAFC;
-                                   -fx-border-color: #CBD5E1;
-                                   -fx-border-radius: 7;
-                                   -fx-background-radius: 7;
-                                   -fx-padding: 9;
-                                   -fx-font-size: 13px;"/>
-
-                </GridPane>
-
-
-                <!-- ================================================= -->
-                <!-- PHOTO + SPECIAL REQUEST -->
-                <!-- ================================================= -->
-
-                <HBox
+                <VBox
                         spacing="18.0"
-                        VBox.vgrow="ALWAYS">
+
+                        fillWidth="true"
+
+                        maxWidth="Infinity"
+                        maxHeight="Infinity"
+
+                        style="-fx-background-color: #F5F7FB;">
+
+                    <padding>
+
+                        <Insets
+                                top="22.0"
+                                right="30.0"
+                                bottom="22.0"
+                                left="30.0"/>
+
+                    </padding>
 
 
-                    <!-- CUSTOMER PHOTO -->
+                    <!-- ================================================= -->
+                    <!-- CUSTOMER INFORMATION CARD -->
+                    <!-- ================================================= -->
 
                     <VBox
-                            alignment="CENTER"
-                            spacing="10.0"
-                            prefWidth="190.0"
-                            style="-fx-background-color: #EFF6FF;
-                                   -fx-background-radius: 10;
-                                   -fx-border-color: #BFDBFE;
-                                   -fx-border-radius: 10;
-                                   -fx-padding: 12;">
+                            spacing="15.0"
+
+                            fillWidth="true"
+
+                            maxWidth="Infinity"
+
+                            style="-fx-background-color: #FFFFFF;
+                                   -fx-background-radius: 12;
+                                   -fx-border-color: #E2E8F0;
+                                   -fx-border-radius: 12;
+                                   -fx-border-width: 1;
+                                   -fx-padding: 20;">
 
                         <Label
-                                text="Customer Photo"
-                                textFill="#1E40AF">
+                                text="Customer Information"
+                                textFill="#172554">
 
                             <font>
+
                                 <Font
                                         name="System Bold"
-                                        size="14.0"/>
+                                        size="20.0"/>
+
                             </font>
 
                         </Label>
 
-                        <ImageView
-                                fx:id="customerImageView"
-                                fitHeight="75.0"
-                                fitWidth="95.0"
-                                preserveRatio="true"/>
 
-                        <Button
-                                mnemonicParsing="false"
-                                onAction="#browseImage"
-                                prefHeight="34.0"
-                                prefWidth="125.0"
-                                text="Browse Image"
-                                style="-fx-background-color: #2563EB;
-                                       -fx-text-fill: white;
-                                       -fx-font-size: 12px;
-                                       -fx-font-weight: bold;
-                                       -fx-background-radius: 7;
-                                       -fx-cursor: hand;"/>
+                        <!-- ================================================= -->
+                        <!-- RESPONSIVE INPUT FIELDS -->
+                        <!-- ================================================= -->
+
+                        <GridPane
+                                hgap="15.0"
+                                vgap="14.0"
+
+                                maxWidth="Infinity">
+
+                            <columnConstraints>
+
+                                <ColumnConstraints
+                                        minWidth="90.0"/>
+
+                                <ColumnConstraints
+                                        hgrow="ALWAYS"
+                                        fillWidth="true"
+                                        minWidth="180.0"/>
+
+                                <ColumnConstraints
+                                        minWidth="70.0"/>
+
+                                <ColumnConstraints
+                                        hgrow="ALWAYS"
+                                        fillWidth="true"
+                                        minWidth="180.0"/>
+
+                            </columnConstraints>
+
+
+                            <!-- CUSTOMER ID -->
+
+                            <Label
+                                    text="Customer ID:"
+                                    textFill="#334155"
+
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="0">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="13.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <TextField
+                                    fx:id="customerIdField"
+
+                                    promptText="Enter customer ID"
+
+                                    maxWidth="Infinity"
+
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="1"
+
+                                    style="-fx-background-color: #F8FAFC;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-radius: 7;
+                                           -fx-background-radius: 7;
+                                           -fx-padding: 9;
+                                           -fx-font-size: 13px;"/>
+
+
+                            <!-- NAME -->
+
+                            <Label
+                                    text="Name:"
+                                    textFill="#334155"
+
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="2">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="13.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <TextField
+                                    fx:id="nameField"
+
+                                    promptText="Enter customer name"
+
+                                    maxWidth="Infinity"
+
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="3"
+
+                                    style="-fx-background-color: #F8FAFC;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-radius: 7;
+                                           -fx-background-radius: 7;
+                                           -fx-padding: 9;
+                                           -fx-font-size: 13px;"/>
+
+
+                            <!-- PHONE -->
+
+                            <Label
+                                    text="Phone:"
+                                    textFill="#334155"
+
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="0">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="13.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <TextField
+                                    fx:id="phoneField"
+
+                                    promptText="Enter phone number"
+
+                                    maxWidth="Infinity"
+
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="1"
+
+                                    style="-fx-background-color: #F8FAFC;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-radius: 7;
+                                           -fx-background-radius: 7;
+                                           -fx-padding: 9;
+                                           -fx-font-size: 13px;"/>
+
+
+                            <!-- EMAIL -->
+
+                            <Label
+                                    text="Email:"
+                                    textFill="#334155"
+
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="2">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="13.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <TextField
+                                    fx:id="emailField"
+
+                                    promptText="Enter email address"
+
+                                    maxWidth="Infinity"
+
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="3"
+
+                                    style="-fx-background-color: #F8FAFC;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-radius: 7;
+                                           -fx-background-radius: 7;
+                                           -fx-padding: 9;
+                                           -fx-font-size: 13px;"/>
+
+
+                            <!-- ADDRESS -->
+
+                            <Label
+                                    text="Address:"
+                                    textFill="#334155"
+
+                                    GridPane.rowIndex="2"
+                                    GridPane.columnIndex="0">
+
+                                <font>
+
+                                    <Font
+                                            name="System Bold"
+                                            size="13.0"/>
+
+                                </font>
+
+                            </Label>
+
+
+                            <TextField
+                                    fx:id="addressField"
+
+                                    promptText="Enter customer address"
+
+                                    maxWidth="Infinity"
+
+                                    GridPane.rowIndex="2"
+                                    GridPane.columnIndex="1"
+                                    GridPane.columnSpan="3"
+
+                                    style="-fx-background-color: #F8FAFC;
+                                           -fx-border-color: #CBD5E1;
+                                           -fx-border-radius: 7;
+                                           -fx-background-radius: 7;
+                                           -fx-padding: 9;
+                                           -fx-font-size: 13px;"/>
+
+                        </GridPane>
+
+
+                        <!-- ================================================= -->
+                        <!-- PHOTO + SPECIAL REQUEST -->
+                        <!-- ================================================= -->
+
+                        <FlowPane
+                                alignment="CENTER_LEFT"
+
+                                hgap="18.0"
+                                vgap="18.0"
+
+                                prefWrapLength="650.0"
+
+                                maxWidth="Infinity">
+
+
+                            <!-- CUSTOMER PHOTO -->
+
+                            <VBox
+                                    alignment="CENTER"
+                                    spacing="10.0"
+
+                                    minWidth="190.0"
+                                    prefWidth="190.0"
+                                    minHeight="170.0"
+
+                                    style="-fx-background-color: #EFF6FF;
+                                           -fx-background-radius: 10;
+                                           -fx-border-color: #BFDBFE;
+                                           -fx-border-radius: 10;
+                                           -fx-padding: 12;">
+
+                                <Label
+                                        text="Customer Photo"
+                                        textFill="#1E40AF">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="14.0"/>
+
+                                    </font>
+
+                                </Label>
+
+
+                                <ImageView
+                                        fx:id="customerImageView"
+
+                                        fitHeight="75.0"
+                                        fitWidth="95.0"
+
+                                        preserveRatio="true"/>
+
+
+                                <Button
+                                        mnemonicParsing="false"
+
+                                        onAction="#browseImage"
+
+                                        prefHeight="34.0"
+                                        prefWidth="125.0"
+
+                                        text="Browse Image"
+
+                                        style="-fx-background-color: #2563EB;
+                                               -fx-text-fill: white;
+                                               -fx-font-size: 12px;
+                                               -fx-font-weight: bold;
+                                               -fx-background-radius: 7;
+                                               -fx-cursor: hand;"/>
+
+                            </VBox>
+
+
+                            <!-- SPECIAL REQUEST -->
+
+                            <VBox
+                                    spacing="8.0"
+
+                                    minWidth="300.0"
+
+                                    prefWidth="450.0"
+
+                                    maxWidth="600.0"
+
+                                    VBox.vgrow="ALWAYS">
+
+                                <Label
+                                        text="Special Request"
+                                        textFill="#334155">
+
+                                    <font>
+
+                                        <Font
+                                                name="System Bold"
+                                                size="14.0"/>
+
+                                    </font>
+
+                                </Label>
+
+
+                                <TextArea
+                                        fx:id="specialRequestTextArea"
+
+                                        promptText="Enter special request..."
+
+                                        prefHeight="140.0"
+
+                                        minHeight="120.0"
+
+                                        maxWidth="Infinity"
+
+                                        wrapText="true"
+
+                                        VBox.vgrow="ALWAYS"
+
+                                        style="-fx-background-color: #F8FAFC;
+                                               -fx-border-color: #CBD5E1;
+                                               -fx-border-radius: 7;
+                                               -fx-background-radius: 7;
+                                               -fx-font-size: 13px;"/>
+
+                            </VBox>
+
+                        </FlowPane>
 
                     </VBox>
 
+                </VBox>
 
-                    <!-- SPECIAL REQUEST -->
+            </content>
 
-                    <VBox
-                            spacing="8.0"
-                            HBox.hgrow="ALWAYS">
-
-                        <Label
-                                text="Special Request"
-                                textFill="#334155">
-
-                            <font>
-                                <Font
-                                        name="System Bold"
-                                        size="14.0"/>
-                            </font>
-
-                        </Label>
-
-                        <TextArea
-                                fx:id="specialRequestTextArea"
-                                promptText="Enter special request..."
-                                wrapText="true"
-                                VBox.vgrow="ALWAYS"
-                                style="-fx-background-color: #F8FAFC;
-                                       -fx-border-color: #CBD5E1;
-                                       -fx-border-radius: 7;
-                                       -fx-background-radius: 7;
-                                       -fx-font-size: 13px;"/>
-
-                    </VBox>
-
-                </HBox>
-
-            </VBox>
-
-        </VBox>
+        </ScrollPane>
 
     </center>
 
@@ -395,33 +561,45 @@
 
     <bottom>
 
-        <HBox
+        <FlowPane
                 alignment="CENTER_RIGHT"
-                spacing="12.0"
+
+                hgap="12.0"
+                vgap="10.0"
+
                 prefHeight="70.0"
+                minHeight="65.0"
+
+                prefWrapLength="500.0"
+
                 style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 1 0 0 0;">
 
             <padding>
+
                 <Insets
                         top="12.0"
                         right="30.0"
                         bottom="12.0"
                         left="30.0"/>
-            </padding>
 
-            <Region HBox.hgrow="ALWAYS"/>
+            </padding>
 
 
             <!-- CANCEL -->
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#cancel"
+
                     prefHeight="42.0"
+                    minWidth="105.0"
                     prefWidth="105.0"
+
                     text="Cancel"
+
                     style="-fx-background-color: #E2E8F0;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;
@@ -434,10 +612,15 @@
 
             <Button
                     mnemonicParsing="false"
+
                     onAction="#saveCustomer"
+
                     prefHeight="42.0"
+                    minWidth="155.0"
                     prefWidth="155.0"
+
                     text="Save Customer"
+
                     style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -445,7 +628,7 @@
                            -fx-background-radius: 8;
                            -fx-cursor: hand;"/>
 
-        </HBox>
+        </FlowPane>
 
     </bottom>
 

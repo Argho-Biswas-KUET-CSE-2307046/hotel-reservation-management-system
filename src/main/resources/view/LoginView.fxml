@@ -6,8 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,21 +19,23 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.LoginController"
+
         prefWidth="900.0"
         prefHeight="600.0"
+
         minWidth="700.0"
         minHeight="500.0"
+
         style="-fx-background-color: #F5F7FB;">
 
    <!-- ========================================================= -->
-   <!-- MAIN LOGIN CONTAINER -->
+   <!-- RESPONSIVE MAIN CONTAINER -->
    <!-- ========================================================= -->
 
-   <HBox
-           alignment="CENTER"
-           spacing="0.0"
-           maxWidth="850.0"
-           maxHeight="500.0"
+   <GridPane
+           maxWidth="Infinity"
+           maxHeight="Infinity"
+
            style="-fx-background-color: #FFFFFF;
                    -fx-background-radius: 16;
                    -fx-border-color: #E2E8F0;
@@ -38,14 +43,57 @@
                    -fx-border-width: 1;">
 
       <!-- ===================================================== -->
+      <!-- RESPONSIVE WIDTH CONSTRAINTS -->
+      <!-- ===================================================== -->
+
+      <columnConstraints>
+
+         <!-- Left panel = 35% of available width -->
+
+         <ColumnConstraints
+                 percentWidth="35.0"
+                 minWidth="250.0"
+                 hgrow="ALWAYS"/>
+
+         <!-- Right panel = 65% of available width -->
+
+         <ColumnConstraints
+                 percentWidth="65.0"
+                 minWidth="400.0"
+                 hgrow="ALWAYS"/>
+
+      </columnConstraints>
+
+
+      <!-- ===================================================== -->
+      <!-- RESPONSIVE HEIGHT CONSTRAINT -->
+      <!-- ===================================================== -->
+
+      <rowConstraints>
+
+         <RowConstraints
+                 percentHeight="100.0"
+                 vgrow="ALWAYS"/>
+
+      </rowConstraints>
+
+
+      <!-- ===================================================== -->
       <!-- LEFT INFORMATION PANEL -->
       <!-- ===================================================== -->
 
       <VBox
+              GridPane.columnIndex="0"
+              GridPane.rowIndex="0"
+
               alignment="CENTER"
               spacing="15.0"
-              prefWidth="330.0"
-              maxWidth="330.0"
+
+              fillWidth="true"
+
+              maxWidth="Infinity"
+              maxHeight="Infinity"
+
               style="-fx-background-color: #172554;
                        -fx-background-radius: 16 0 0 16;">
 
@@ -60,11 +108,14 @@
          </padding>
 
 
+         <!-- ================================================= -->
          <!-- HOTEL TITLE -->
+         <!-- ================================================= -->
 
          <Label
                  text="HOTEL"
-                 textFill="#93C5FD">
+                 textFill="#93C5FD"
+                 wrapText="true">
 
             <font>
 
@@ -79,7 +130,8 @@
 
          <Label
                  text="RESERVATION"
-                 textFill="WHITE">
+                 textFill="WHITE"
+                 wrapText="true">
 
             <font>
 
@@ -94,7 +146,8 @@
 
          <Label
                  text="MANAGEMENT SYSTEM"
-                 textFill="#BFDBFE">
+                 textFill="#BFDBFE"
+                 wrapText="true">
 
             <font>
 
@@ -107,13 +160,18 @@
          </Label>
 
 
+         <!-- Responsive vertical spacing -->
+
          <Region
-                 prefHeight="20.0"/>
+                 minHeight="10.0"
+                 prefHeight="20.0"
+                 VBox.vgrow="ALWAYS"/>
 
 
          <Label
                  text="Welcome Back"
-                 textFill="WHITE">
+                 textFill="WHITE"
+                 wrapText="true">
 
             <font>
 
@@ -130,8 +188,7 @@
                  text="Sign in to access the hotel management dashboard."
                  textFill="#CBD5E1"
                  wrapText="true"
-                 maxWidth="240.0"
-                 alignment="CENTER">
+                 maxWidth="260.0">
 
             <font>
 
@@ -145,12 +202,15 @@
 
 
          <Region
-                 prefHeight="15.0"/>
+                 minHeight="10.0"
+                 prefHeight="15.0"
+                 VBox.vgrow="ALWAYS"/>
 
 
          <Label
                  text="Secure • Simple • Efficient"
-                 textFill="#60A5FA">
+                 textFill="#60A5FA"
+                 wrapText="true">
 
             <font>
 
@@ -170,10 +230,19 @@
       <!-- ===================================================== -->
 
       <VBox
+              GridPane.columnIndex="1"
+              GridPane.rowIndex="0"
+
               alignment="CENTER"
               spacing="16.0"
-              prefWidth="500.0"
-              HBox.hgrow="ALWAYS">
+
+              fillWidth="true"
+
+              maxWidth="Infinity"
+              maxHeight="Infinity"
+
+              style="-fx-background-color: #FFFFFF;
+                       -fx-background-radius: 0 16 16 0;">
 
          <padding>
 
@@ -186,15 +255,20 @@
          </padding>
 
 
+         <!-- ================================================= -->
          <!-- LOGIN TITLE -->
+         <!-- ================================================= -->
 
          <VBox
                  alignment="CENTER"
-                 spacing="5.0">
+                 spacing="5.0"
+                 fillWidth="true"
+                 maxWidth="500.0">
 
             <Label
                     text="Welcome Back"
-                    textFill="#172554">
+                    textFill="#172554"
+                    wrapText="true">
 
                <font>
 
@@ -209,7 +283,8 @@
 
             <Label
                     text="Login to continue"
-                    textFill="#64748B">
+                    textFill="#64748B"
+                    wrapText="true">
 
                <font>
 
@@ -225,6 +300,7 @@
 
 
          <Region
+                 minHeight="3.0"
                  prefHeight="5.0"/>
 
 
@@ -234,7 +310,8 @@
 
          <VBox
                  spacing="6.0"
-                 maxWidth="360.0">
+                 fillWidth="true"
+                 maxWidth="500.0">
 
             <Label
                     text="Username"
@@ -253,9 +330,12 @@
 
             <TextField
                     fx:id="usernameField"
+
                     prefHeight="43.0"
-                    maxWidth="360.0"
+                    maxWidth="Infinity"
+
                     promptText="Enter username"
+
                     style="-fx-background-color: #F8FAFC;
                                -fx-border-color: #CBD5E1;
                                -fx-border-width: 1;
@@ -273,7 +353,8 @@
 
          <VBox
                  spacing="6.0"
-                 maxWidth="360.0">
+                 fillWidth="true"
+                 maxWidth="500.0">
 
             <Label
                     text="Password"
@@ -292,9 +373,12 @@
 
             <PasswordField
                     fx:id="passwordField"
+
                     prefHeight="43.0"
-                    maxWidth="360.0"
+                    maxWidth="Infinity"
+
                     promptText="Enter password"
+
                     style="-fx-background-color: #F8FAFC;
                                -fx-border-color: #CBD5E1;
                                -fx-border-width: 1;
@@ -312,12 +396,14 @@
 
          <HBox
                  alignment="CENTER_LEFT"
-                 maxWidth="360.0">
+                 maxWidth="500.0">
 
             <CheckBox
                     fx:id="showPasswordCheckBox"
+
                     mnemonicParsing="false"
                     onAction="#togglePasswordVisibility"
+
                     text="Show Password"
                     textFill="#475569">
 
@@ -335,6 +421,7 @@
 
 
          <Region
+                 minHeight="2.0"
                  prefHeight="2.0"/>
 
 
@@ -344,12 +431,15 @@
 
          <Button
                  fx:id="loginButton"
+
                  mnemonicParsing="false"
                  onAction="#login"
+
                  prefHeight="44.0"
-                 prefWidth="360.0"
-                 maxWidth="360.0"
+                 maxWidth="Infinity"
+
                  text="LOGIN"
+
                  style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
@@ -374,12 +464,15 @@
 
          <Button
                  fx:id="changePasswordButton"
+
                  mnemonicParsing="false"
                  onAction="#changeCredentials"
+
                  prefHeight="40.0"
-                 prefWidth="360.0"
-                 maxWidth="360.0"
+                 maxWidth="Infinity"
+
                  text="Change Username / Password"
+
                  style="-fx-background-color: #F1F5F9;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;
@@ -405,9 +498,15 @@
          <!-- FOOTER -->
          <!-- ================================================= -->
 
+         <Region
+                 minHeight="5.0"
+                 VBox.vgrow="ALWAYS"/>
+
+
          <Label
                  text="Hotel Reservation and Management System"
-                 textFill="#94A3B8">
+                 textFill="#94A3B8"
+                 wrapText="true">
 
             <font>
 
@@ -421,6 +520,6 @@
 
       </VBox>
 
-   </HBox>
+   </GridPane>
 
 </StackPane>

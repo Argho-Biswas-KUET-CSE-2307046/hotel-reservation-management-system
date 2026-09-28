@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -18,10 +19,13 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.MainController"
+
         prefWidth="1100.0"
         prefHeight="700.0"
+
         minWidth="900.0"
         minHeight="600.0"
+
         style="-fx-background-color: #F5F7FB;">
 
     <!-- ========================================================= -->
@@ -29,7 +33,7 @@
     <!-- ========================================================= -->
 
     <stylesheets>
-        <String fx:value="@../css/style.css"/>
+        <String fx:value="/css/style.css"/>
     </stylesheets>
 
 
@@ -39,11 +43,14 @@
 
     <top>
 
-        <VBox spacing="0">
+        <VBox
+                fillWidth="true"
+                spacing="0">
 
             <!-- MENU BAR -->
 
             <MenuBar
+                    maxWidth="Infinity"
                     style="-fx-background-color: #FFFFFF;
                            -fx-border-color: #E5E7EB;
                            -fx-border-width: 0 0 1 0;">
@@ -86,6 +93,9 @@
                     alignment="CENTER_LEFT"
                     spacing="15.0"
                     prefHeight="85.0"
+                    maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS"
+
                     style="-fx-background-color: #FFFFFF;
                            -fx-border-color: #E5E7EB;
                            -fx-border-width: 0 0 1 0;">
@@ -101,11 +111,14 @@
                 </padding>
 
 
-                <VBox spacing="3.0">
+                <VBox
+                        spacing="3.0"
+                        HBox.hgrow="ALWAYS">
 
                     <Label
                             text="HOTEL RESERVATION"
-                            textFill="#1E3A8A">
+                            textFill="#1E3A8A"
+                            wrapText="true">
 
                         <font>
 
@@ -120,7 +133,8 @@
 
                     <Label
                             text="AND MANAGEMENT SYSTEM"
-                            textFill="#64748B">
+                            textFill="#64748B"
+                            wrapText="true">
 
                         <font>
 
@@ -168,8 +182,12 @@
 
         <VBox
                 prefWidth="235.0"
+                minWidth="210.0"
+                maxWidth="280.0"
+
                 spacing="12.0"
                 alignment="TOP_CENTER"
+
                 style="-fx-background-color: #172554;">
 
             <padding>
@@ -226,6 +244,7 @@
                     prefHeight="48.0"
                     mnemonicParsing="false"
                     text="Dashboard"
+
                     style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
@@ -242,6 +261,7 @@
                     mnemonicParsing="false"
                     onAction="#openRoomManagement"
                     text="Room Management"
+
                     style="-fx-background-color: transparent;
                            -fx-text-fill: #E0E7FF;
                            -fx-font-size: 14px;
@@ -258,6 +278,7 @@
                     mnemonicParsing="false"
                     onAction="#openCustomerManagement"
                     text="Customer Management"
+
                     style="-fx-background-color: transparent;
                            -fx-text-fill: #E0E7FF;
                            -fx-font-size: 14px;
@@ -274,6 +295,7 @@
                     mnemonicParsing="false"
                     onAction="#openBooking"
                     text="Booking"
+
                     style="-fx-background-color: transparent;
                            -fx-text-fill: #E0E7FF;
                            -fx-font-size: 14px;
@@ -290,6 +312,7 @@
                     mnemonicParsing="false"
                     onAction="#openBookingHistory"
                     text="Booking History"
+
                     style="-fx-background-color: transparent;
                            -fx-text-fill: #E0E7FF;
                            -fx-font-size: 14px;
@@ -306,6 +329,7 @@
                     mnemonicParsing="false"
                     onAction="#openFinance"
                     text="Finance &amp; Reports"
+
                     style="-fx-background-color: #7C3AED;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
@@ -322,6 +346,7 @@
                     mnemonicParsing="false"
                     onAction="#openWeather"
                     text="Weather Information"
+
                     style="-fx-background-color: #0EA5E9;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
@@ -330,7 +355,10 @@
                            -fx-cursor: hand;"/>
 
 
+            <!-- RESPONSIVE SPACER -->
+
             <Region
+                    minHeight="10.0"
                     VBox.vgrow="ALWAYS"/>
 
 
@@ -342,6 +370,7 @@
                     mnemonicParsing="false"
                     onAction="#exitApplication"
                     text="Exit"
+
                     style="-fx-background-color: #1E40AF;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
@@ -363,8 +392,12 @@
         <ScrollPane
                 fitToWidth="true"
                 fitToHeight="true"
+
                 hbarPolicy="NEVER"
                 vbarPolicy="AS_NEEDED"
+
+                pannable="true"
+
                 style="-fx-background-color: #F5F7FB;
                        -fx-background: #F5F7FB;">
 
@@ -373,6 +406,8 @@
                 <VBox
                         spacing="22.0"
                         fillWidth="true"
+                        maxWidth="Infinity"
+
                         style="-fx-background-color: #F5F7FB;">
 
                     <padding>
@@ -390,11 +425,14 @@
                     <!-- DASHBOARD TITLE -->
                     <!-- ================================================= -->
 
-                    <VBox spacing="5.0">
+                    <VBox
+                            spacing="5.0"
+                            fillWidth="true">
 
                         <Label
                                 text="Dashboard Overview"
-                                textFill="#172554">
+                                textFill="#172554"
+                                wrapText="true">
 
                             <font>
 
@@ -410,7 +448,8 @@
                         <Label
                                 text="Manage your hotel rooms, customers and reservations from one place."
                                 textFill="#64748B"
-                                wrapText="true">
+                                wrapText="true"
+                                maxWidth="Infinity">
 
                             <font>
 
@@ -429,17 +468,23 @@
                     <!-- THREE INFORMATION CARDS -->
                     <!-- ================================================= -->
 
-                    <HBox
-                            spacing="18.0"
-                            fillHeight="true">
-
+                    <FlowPane
+                            hgap="18.0"
+                            vgap="18.0"
+                            prefWrapLength="800.0"
+                            maxWidth="Infinity"
+                            alignment="TOP_LEFT"
+                            prefHeight="170.0">
 
                         <!-- ROOM CARD -->
 
                         <VBox
                                 spacing="8.0"
                                 prefHeight="145.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+
                                 style="-fx-background-color: #DBEAFE;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #93C5FD;
@@ -449,7 +494,8 @@
 
                             <Label
                                     text="ROOM MANAGEMENT"
-                                    textFill="#1D4ED8">
+                                    textFill="#1D4ED8"
+                                    wrapText="true">
 
                                 <font>
 
@@ -464,7 +510,9 @@
 
                             <Label
                                     text="Manage Rooms"
-                                    textFill="#172554">
+                                    textFill="#172554"
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -480,7 +528,8 @@
                             <Label
                                     text="Add, update, search and manage room availability."
                                     textFill="#475569"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -500,7 +549,10 @@
                         <VBox
                                 spacing="8.0"
                                 prefHeight="145.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+
                                 style="-fx-background-color: #FCE7F3;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #F9A8D4;
@@ -510,7 +562,8 @@
 
                             <Label
                                     text="CUSTOMERS"
-                                    textFill="#BE185D">
+                                    textFill="#BE185D"
+                                    wrapText="true">
 
                                 <font>
 
@@ -526,7 +579,8 @@
                             <Label
                                     text="Customer Management"
                                     textFill="#831843"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -542,7 +596,8 @@
                             <Label
                                     text="Manage customer information and records."
                                     textFill="#6B4055"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -562,7 +617,10 @@
                         <VBox
                                 spacing="8.0"
                                 prefHeight="145.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+
                                 style="-fx-background-color: #DCFCE7;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #86EFAC;
@@ -572,7 +630,8 @@
 
                             <Label
                                     text="RESERVATIONS"
-                                    textFill="#15803D">
+                                    textFill="#15803D"
+                                    wrapText="true">
 
                                 <font>
 
@@ -588,7 +647,8 @@
                             <Label
                                     text="Booking Management"
                                     textFill="#14532D"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -604,7 +664,8 @@
                             <Label
                                     text="Create and manage hotel reservations."
                                     textFill="#46634F"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -618,7 +679,7 @@
 
                         </VBox>
 
-                    </HBox>
+                    </FlowPane>
 
 
                     <!-- ================================================= -->
@@ -627,6 +688,9 @@
 
                     <VBox
                             spacing="12.0"
+                            fillWidth="true"
+                            maxWidth="Infinity"
+
                             style="-fx-background-color: white;
                                    -fx-background-radius: 12;
                                    -fx-border-color: #E2E8F0;
@@ -651,7 +715,9 @@
 
                         <Label
                                 text="Choose a section to continue managing your hotel."
-                                textFill="#64748B">
+                                textFill="#64748B"
+                                wrapText="true"
+                                maxWidth="Infinity">
 
                             <font>
 
@@ -664,17 +730,25 @@
                         </Label>
 
 
-                        <HBox spacing="12.0">
+                        <!-- RESPONSIVE QUICK ACCESS BUTTONS -->
+
+                        <FlowPane
+                                hgap="12.0"
+                                vgap="12.0"
+                                prefWrapLength="800.0"
+                                maxWidth="Infinity"
+                                alignment="TOP_LEFT">
 
                             <!-- ROOM BUTTON -->
 
                             <Button
-                                    maxWidth="Infinity"
+                                    prefWidth="190.0"
+                                    minWidth="150.0"
                                     prefHeight="48.0"
-                                    HBox.hgrow="ALWAYS"
                                     mnemonicParsing="false"
                                     onAction="#openRoomManagement"
                                     text="Room Management"
+
                                     style="-fx-background-color: #2563EB;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
@@ -686,12 +760,13 @@
                             <!-- CUSTOMER BUTTON -->
 
                             <Button
-                                    maxWidth="Infinity"
+                                    prefWidth="210.0"
+                                    minWidth="160.0"
                                     prefHeight="48.0"
-                                    HBox.hgrow="ALWAYS"
                                     mnemonicParsing="false"
                                     onAction="#openCustomerManagement"
                                     text="Customer Management"
+
                                     style="-fx-background-color: #DB2777;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
@@ -703,12 +778,13 @@
                             <!-- BOOKING BUTTON -->
 
                             <Button
-                                    maxWidth="Infinity"
+                                    prefWidth="170.0"
+                                    minWidth="140.0"
                                     prefHeight="48.0"
-                                    HBox.hgrow="ALWAYS"
                                     mnemonicParsing="false"
                                     onAction="#openBooking"
                                     text="New Booking"
+
                                     style="-fx-background-color: #16A34A;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
@@ -720,12 +796,13 @@
                             <!-- FINANCE BUTTON -->
 
                             <Button
-                                    maxWidth="Infinity"
+                                    prefWidth="190.0"
+                                    minWidth="150.0"
                                     prefHeight="48.0"
-                                    HBox.hgrow="ALWAYS"
                                     mnemonicParsing="false"
                                     onAction="#openFinance"
                                     text="Finance &amp; Reports"
+
                                     style="-fx-background-color: #7C3AED;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
@@ -737,12 +814,13 @@
                             <!-- WEATHER BUTTON -->
 
                             <Button
-                                    maxWidth="Infinity"
+                                    prefWidth="150.0"
+                                    minWidth="130.0"
                                     prefHeight="48.0"
-                                    HBox.hgrow="ALWAYS"
                                     mnemonicParsing="false"
                                     onAction="#openWeather"
                                     text="Weather"
+
                                     style="-fx-background-color: #0EA5E9;
                                            -fx-text-fill: white;
                                            -fx-font-size: 14px;
@@ -750,7 +828,7 @@
                                            -fx-background-radius: 8;
                                            -fx-cursor: hand;"/>
 
-                        </HBox>
+                        </FlowPane>
 
                     </VBox>
 
@@ -759,14 +837,22 @@
                     <!-- BOTTOM INFORMATION CARDS -->
                     <!-- ================================================= -->
 
-                    <HBox spacing="18.0">
-
+                    <FlowPane
+                            hgap="18.0"
+                            vgap="18.0"
+                            prefWrapLength="800.0"
+                            maxWidth="Infinity"
+                            alignment="TOP_LEFT">
 
                         <!-- BOOKING HISTORY -->
 
                         <VBox
                                 spacing="10.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+                                minHeight="180.0"
+
                                 style="-fx-background-color: #FFF7ED;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #FED7AA;
@@ -791,7 +877,9 @@
 
                             <Label
                                     text="View Reservations"
-                                    textFill="#7C2D12">
+                                    textFill="#7C2D12"
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -807,7 +895,8 @@
                             <Label
                                     text="Review previously created hotel bookings."
                                     textFill="#7C5B45"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -821,10 +910,12 @@
 
 
                             <Button
+                                    maxWidth="Infinity"
                                     prefHeight="40.0"
                                     mnemonicParsing="false"
                                     onAction="#openBookingHistory"
                                     text="Open History"
+
                                     style="-fx-background-color: #F97316;
                                            -fx-text-fill: white;
                                            -fx-font-size: 13px;
@@ -839,7 +930,11 @@
 
                         <VBox
                                 spacing="10.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+                                minHeight="180.0"
+
                                 style="-fx-background-color: #F3E8FF;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #D8B4FE;
@@ -864,7 +959,9 @@
 
                             <Label
                                     text="SQLite Integrated"
-                                    textFill="#581C87">
+                                    textFill="#581C87"
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -880,7 +977,8 @@
                             <Label
                                     text="Rooms, customers and bookings are stored in SQLite."
                                     textFill="#6B4A7A"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -899,7 +997,11 @@
 
                         <VBox
                                 spacing="10.0"
-                                HBox.hgrow="ALWAYS"
+                                prefWidth="250.0"
+                                minWidth="220.0"
+                                maxWidth="360.0"
+                                minHeight="180.0"
+
                                 style="-fx-background-color: #E0F2FE;
                                        -fx-background-radius: 12;
                                        -fx-border-color: #7DD3FC;
@@ -924,7 +1026,9 @@
 
                             <Label
                                     text="Live Weather"
-                                    textFill="#075985">
+                                    textFill="#075985"
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -940,7 +1044,8 @@
                             <Label
                                     text="Retrieve live weather data from an online API using JSON parsing."
                                     textFill="#475569"
-                                    wrapText="true">
+                                    wrapText="true"
+                                    maxWidth="Infinity">
 
                                 <font>
 
@@ -954,10 +1059,12 @@
 
 
                             <Button
+                                    maxWidth="Infinity"
                                     prefHeight="40.0"
                                     mnemonicParsing="false"
                                     onAction="#openWeather"
                                     text="Open Weather"
+
                                     style="-fx-background-color: #0EA5E9;
                                            -fx-text-fill: white;
                                            -fx-font-size: 13px;
@@ -967,7 +1074,7 @@
 
                         </VBox>
 
-                    </HBox>
+                    </FlowPane>
 
                 </VBox>
 
@@ -987,7 +1094,11 @@
         <HBox
                 alignment="CENTER_RIGHT"
                 spacing="15.0"
+
                 prefHeight="70.0"
+                minHeight="65.0"
+                maxWidth="Infinity"
+
                 style="-fx-background-color: white;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 1 0 0 0;">
@@ -1007,11 +1118,15 @@
 
             <Button
                     fx:id="refreshDataButton"
+
                     onAction="#refreshData"
+
                     prefHeight="42.0"
                     prefWidth="150.0"
+
                     mnemonicParsing="false"
                     text="Refresh Data"
+
                     style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -1024,11 +1139,15 @@
 
             <Button
                     fx:id="logoutButton"
+
                     onAction="#logout"
+
                     prefHeight="42.0"
                     prefWidth="120.0"
+
                     mnemonicParsing="false"
                     text="Logout"
+
                     style="-fx-background-color: #E2E8F0;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;

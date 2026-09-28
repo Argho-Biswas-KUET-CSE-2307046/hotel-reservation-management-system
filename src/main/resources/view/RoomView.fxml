@@ -4,13 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -18,10 +22,13 @@
         xmlns="http://javafx.com/javafx/26"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="hotel.controller.RoomController"
+
         prefWidth="1100.0"
         prefHeight="700.0"
+
         minWidth="900.0"
         minHeight="600.0"
+
         style="-fx-background-color: #F5F7FB;">
 
    <!-- ========================================================= -->
@@ -32,12 +39,17 @@
 
       <VBox spacing="0.0">
 
+         <!-- ================================================= -->
          <!-- HEADER -->
+         <!-- ================================================= -->
 
          <HBox
                  alignment="CENTER_LEFT"
                  spacing="15.0"
+
+                 minHeight="75.0"
                  prefHeight="90.0"
+
                  style="-fx-background-color: #FFFFFF;
                            -fx-border-color: #E2E8F0;
                            -fx-border-width: 0 0 1 0;">
@@ -53,11 +65,16 @@
             </padding>
 
 
-            <VBox spacing="3.0">
+            <!-- HEADER TITLE -->
+
+            <VBox
+                    spacing="3.0"
+                    maxWidth="Infinity">
 
                <Label
                        text="ROOM MANAGEMENT"
-                       textFill="#1E3A8A">
+                       textFill="#1E3A8A"
+                       wrapText="true">
 
                   <font>
 
@@ -72,7 +89,8 @@
 
                <Label
                        text="Manage hotel rooms and availability"
-                       textFill="#64748B">
+                       textFill="#64748B"
+                       wrapText="true">
 
                   <font>
 
@@ -87,8 +105,11 @@
             </VBox>
 
 
+            <!-- RESPONSIVE SPACE -->
+
             <Region
-                    HBox.hgrow="ALWAYS"/>
+                    HBox.hgrow="ALWAYS"
+                    minWidth="10.0"/>
 
 
             <Label
@@ -108,12 +129,17 @@
          </HBox>
 
 
+         <!-- ================================================= -->
          <!-- SEARCH AREA -->
+         <!-- ================================================= -->
 
          <HBox
                  alignment="CENTER_LEFT"
                  spacing="12.0"
+
+                 minHeight="65.0"
                  prefHeight="75.0"
+
                  style="-fx-background-color: #FFFFFF;">
 
             <padding>
@@ -142,11 +168,19 @@
             </Label>
 
 
+            <!-- RESPONSIVE SEARCH FIELD -->
+
             <TextField
                     fx:id="searchRoomField"
+
                     prefHeight="40.0"
-                    prefWidth="350.0"
+                    minWidth="200.0"
+                    maxWidth="600.0"
+
+                    HBox.hgrow="ALWAYS"
+
                     promptText="Enter room number or room type"
+
                     style="-fx-background-color: #F8FAFC;
                                -fx-border-color: #CBD5E1;
                                -fx-border-width: 1;
@@ -157,7 +191,8 @@
 
 
             <Region
-                    HBox.hgrow="ALWAYS"/>
+                    HBox.hgrow="ALWAYS"
+                    minWidth="10.0"/>
 
 
             <Label
@@ -182,148 +217,111 @@
 
 
    <!-- ========================================================= -->
-   <!-- CENTER -->
+   <!-- RESPONSIVE CENTER -->
    <!-- ========================================================= -->
 
    <center>
 
-      <HBox
-              spacing="20.0"
-              style="-fx-background-color: #F5F7FB;">
+      <ScrollPane
+              fitToWidth="true"
+              fitToHeight="true"
 
-         <padding>
+              hbarPolicy="NEVER"
+              vbarPolicy="AS_NEEDED"
 
-            <Insets
-                    top="25.0"
-                    right="30.0"
-                    bottom="20.0"
-                    left="30.0"/>
+              style="-fx-background-color: #F5F7FB;
+                       -fx-background: #F5F7FB;">
 
-         </padding>
+         <content>
 
+            <GridPane
+                    hgap="20.0"
+                    vgap="0.0"
 
-         <!-- ===================================================== -->
-         <!-- LEFT INFORMATION PANEL -->
-         <!-- ===================================================== -->
+                    maxWidth="Infinity"
+                    maxHeight="Infinity"
 
-         <VBox
-                 prefWidth="220.0"
-                 minWidth="200.0"
-                 spacing="15.0"
-                 style="-fx-background-color: #172554;
-                           -fx-background-radius: 12;
-                           -fx-padding: 20;">
+                    style="-fx-background-color: #F5F7FB;">
 
-            <!-- TITLE -->
+               <padding>
 
-            <Label
-                    text="Room Information"
-                    textFill="WHITE">
+                  <Insets
+                          top="25.0"
+                          right="30.0"
+                          bottom="20.0"
+                          left="30.0"/>
 
-               <font>
-
-                  <Font
-                          name="System Bold"
-                          size="18.0"/>
-
-               </font>
-
-            </Label>
+               </padding>
 
 
-            <Label
-                    text="Available facilities"
-                    textFill="#BFDBFE">
+               <!-- ================================================= -->
+               <!-- RESPONSIVE WIDTH CONSTRAINTS -->
+               <!-- ================================================= -->
 
-               <font>
+               <columnConstraints>
 
-                  <Font
-                          name="System"
-                          size="13.0"/>
+                  <!-- LEFT INFORMATION PANEL = 25% -->
 
-               </font>
-
-            </Label>
-
-
-            <!-- FACILITIES -->
-
-            <ListView
-                    fx:id="facilityListView"
-                    prefHeight="210.0"
-                    prefWidth="180.0"
-                    VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: #FFFFFF;
-                               -fx-background-radius: 7;
-                               -fx-border-radius: 7;
-                               -fx-border-color: #BFDBFE;
-                               -fx-border-width: 1;"/>
+                  <ColumnConstraints
+                          percentWidth="25.0"
+                          minWidth="200.0"
+                          hgrow="ALWAYS"/>
 
 
-            <!-- TREE TITLE -->
+                  <!-- ROOM TABLE = 75% -->
 
-            <Label
-                    text="Hotel Structure"
-                    textFill="#BFDBFE">
+                  <ColumnConstraints
+                          percentWidth="75.0"
+                          minWidth="500.0"
+                          hgrow="ALWAYS"/>
 
-               <font>
-
-                  <Font
-                          name="System Bold"
-                          size="14.0"/>
-
-               </font>
-
-            </Label>
+               </columnConstraints>
 
 
-            <!-- HOTEL TREE -->
+               <!-- ================================================= -->
+               <!-- RESPONSIVE HEIGHT -->
+               <!-- ================================================= -->
 
-            <TreeView
-                    fx:id="hotelTreeView"
-                    prefHeight="210.0"
-                    prefWidth="180.0"
-                    VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: #FFFFFF;
-                               -fx-background-radius: 7;
-                               -fx-border-radius: 7;
-                               -fx-border-color: #BFDBFE;
-                               -fx-border-width: 1;"/>
+               <rowConstraints>
 
-         </VBox>
+                  <RowConstraints
+                          minHeight="500.0"
+                          vgrow="ALWAYS"/>
+
+               </rowConstraints>
 
 
-         <!-- ===================================================== -->
-         <!-- RIGHT ROOM TABLE AREA -->
-         <!-- ===================================================== -->
+               <!-- ================================================= -->
+               <!-- LEFT INFORMATION PANEL -->
+               <!-- ================================================= -->
 
-         <VBox
-                 spacing="12.0"
-                 HBox.hgrow="ALWAYS"
-                 style="-fx-background-color: #FFFFFF;
-                           -fx-background-radius: 12;
-                           -fx-border-color: #E2E8F0;
-                           -fx-border-radius: 12;
-                           -fx-border-width: 1;
-                           -fx-padding: 20;">
+               <VBox
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="0"
 
-            <!-- TABLE HEADER -->
+                       spacing="15.0"
 
-            <HBox
-                    alignment="CENTER_LEFT"
-                    spacing="10.0">
+                       fillWidth="true"
 
-               <VBox spacing="3.0">
+                       maxWidth="Infinity"
+                       maxHeight="Infinity"
+
+                       style="-fx-background-color: #172554;
+                                   -fx-background-radius: 12;
+                                   -fx-padding: 20;">
+
+                  <!-- TITLE -->
 
                   <Label
-                          text="Room List"
-                          textFill="#172554">
+                          text="Room Information"
+                          textFill="WHITE"
+                          wrapText="true">
 
                      <font>
 
                         <Font
                                 name="System Bold"
-                                size="21.0"/>
+                                size="18.0"/>
 
                      </font>
 
@@ -331,8 +329,9 @@
 
 
                   <Label
-                          text="View and manage all hotel rooms"
-                          textFill="#64748B">
+                          text="Available facilities"
+                          textFill="#BFDBFE"
+                          wrapText="true">
 
                      <font>
 
@@ -344,82 +343,225 @@
 
                   </Label>
 
+
+                  <!-- FACILITIES -->
+
+                  <ListView
+                          fx:id="facilityListView"
+
+                          prefHeight="210.0"
+
+                          minHeight="120.0"
+
+                          maxWidth="Infinity"
+                          VBox.vgrow="ALWAYS"
+
+                          style="-fx-background-color: #FFFFFF;
+                                       -fx-background-radius: 7;
+                                       -fx-border-radius: 7;
+                                       -fx-border-color: #BFDBFE;
+                                       -fx-border-width: 1;"/>
+
+
+                  <!-- TREE TITLE -->
+
+                  <Label
+                          text="Hotel Structure"
+                          textFill="#BFDBFE"
+                          wrapText="true">
+
+                     <font>
+
+                        <Font
+                                name="System Bold"
+                                size="14.0"/>
+
+                     </font>
+
+                  </Label>
+
+
+                  <!-- HOTEL TREE -->
+
+                  <TreeView
+                          fx:id="hotelTreeView"
+
+                          prefHeight="210.0"
+
+                          minHeight="120.0"
+
+                          maxWidth="Infinity"
+                          VBox.vgrow="ALWAYS"
+
+                          style="-fx-background-color: #FFFFFF;
+                                       -fx-background-radius: 7;
+                                       -fx-border-radius: 7;
+                                       -fx-border-color: #BFDBFE;
+                                       -fx-border-width: 1;"/>
+
                </VBox>
 
 
-               <Region
-                       HBox.hgrow="ALWAYS"/>
+               <!-- ================================================= -->
+               <!-- RIGHT ROOM TABLE -->
+               <!-- ================================================= -->
+
+               <VBox
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="0"
+
+                       spacing="12.0"
+
+                       fillWidth="true"
+
+                       maxWidth="Infinity"
+                       maxHeight="Infinity"
+
+                       style="-fx-background-color: #FFFFFF;
+                                   -fx-background-radius: 12;
+                                   -fx-border-color: #E2E8F0;
+                                   -fx-border-radius: 12;
+                                   -fx-border-width: 1;
+                                   -fx-padding: 20;">
+
+                  <!-- TABLE HEADER -->
+
+                  <HBox
+                          alignment="CENTER_LEFT"
+                          spacing="10.0"
+                          fillHeight="true">
+
+                     <VBox
+                             spacing="3.0"
+                             maxWidth="Infinity">
+
+                        <Label
+                                text="Room List"
+                                textFill="#172554"
+                                wrapText="true">
+
+                           <font>
+
+                              <Font
+                                      name="System Bold"
+                                      size="21.0"/>
+
+                           </font>
+
+                        </Label>
 
 
-               <Label
-                       text="ROOMS"
-                       textFill="#2563EB">
+                        <Label
+                                text="View and manage all hotel rooms"
+                                textFill="#64748B"
+                                wrapText="true">
 
-                  <font>
+                           <font>
 
-                     <Font
-                             name="System Bold"
-                             size="12.0"/>
+                              <Font
+                                      name="System"
+                                      size="13.0"/>
 
-                  </font>
+                           </font>
 
-               </Label>
+                        </Label>
 
-            </HBox>
+                     </VBox>
 
 
-            <!-- ROOM TABLE -->
+                     <Region
+                             HBox.hgrow="ALWAYS"
+                             minWidth="10.0"/>
 
-            <TableView
-                    fx:id="roomTable"
-                    prefHeight="450.0"
-                    prefWidth="650.0"
-                    HBox.hgrow="ALWAYS"
-                    VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: #FFFFFF;
-                               -fx-border-color: #CBD5E1;
-                               -fx-border-radius: 8;
-                               -fx-background-radius: 8;">
 
-               <columns>
+                     <Label
+                             text="ROOMS"
+                             textFill="#2563EB">
 
-                  <TableColumn
-                          fx:id="roomNumberColumn"
-                          minWidth="120.0"
-                          prefWidth="150.0"
-                          text="Room Number"/>
+                        <font>
 
-                  <TableColumn
-                          fx:id="roomTypeColumn"
-                          minWidth="150.0"
-                          prefWidth="200.0"
-                          text="Room Type"/>
+                           <Font
+                                   name="System Bold"
+                                   size="12.0"/>
 
-                  <TableColumn
-                          fx:id="priceColumn"
-                          minWidth="120.0"
-                          prefWidth="150.0"
-                          text="Price"/>
+                        </font>
 
-                  <TableColumn
-                          fx:id="availableColumn"
-                          minWidth="120.0"
-                          prefWidth="150.0"
-                          text="Available"/>
+                     </Label>
 
-               </columns>
+                  </HBox>
 
-            </TableView>
 
-         </VBox>
+                  <!-- ================================================= -->
+                  <!-- RESPONSIVE ROOM TABLE -->
+                  <!-- ================================================= -->
 
-      </HBox>
+                  <TableView
+                          fx:id="roomTable"
+
+                          prefHeight="450.0"
+
+                          minWidth="500.0"
+                          minHeight="350.0"
+
+                          maxWidth="Infinity"
+                          maxHeight="Infinity"
+
+                          VBox.vgrow="ALWAYS">
+
+                     <columns>
+
+                        <TableColumn
+                                fx:id="roomNumberColumn"
+
+                                minWidth="100.0"
+                                prefWidth="150.0"
+
+                                text="Room Number"/>
+
+
+                        <TableColumn
+                                fx:id="roomTypeColumn"
+
+                                minWidth="130.0"
+                                prefWidth="200.0"
+
+                                text="Room Type"/>
+
+
+                        <TableColumn
+                                fx:id="priceColumn"
+
+                                minWidth="100.0"
+                                prefWidth="150.0"
+
+                                text="Price"/>
+
+
+                        <TableColumn
+                                fx:id="availableColumn"
+
+                                minWidth="100.0"
+                                prefWidth="150.0"
+
+                                text="Available"/>
+
+                     </columns>
+
+                  </TableView>
+
+               </VBox>
+
+            </GridPane>
+
+         </content>
+
+      </ScrollPane>
 
    </center>
 
 
    <!-- ========================================================= -->
-   <!-- BOTTOM ACTION BAR -->
+   <!-- RESPONSIVE BOTTOM ACTION BAR -->
    <!-- ========================================================= -->
 
    <bottom>
@@ -427,7 +569,10 @@
       <HBox
               alignment="CENTER_RIGHT"
               spacing="12.0"
+
+              minHeight="65.0"
               prefHeight="75.0"
+
               style="-fx-background-color: #FFFFFF;
                        -fx-border-color: #E2E8F0;
                        -fx-border-width: 1 0 0 0;">
@@ -443,19 +588,29 @@
          </padding>
 
 
+         <!-- RESPONSIVE SPACE -->
+
          <Region
-                 HBox.hgrow="ALWAYS"/>
+                 HBox.hgrow="ALWAYS"
+                 minWidth="10.0"/>
 
 
+         <!-- ================================================= -->
          <!-- ADD ROOM -->
+         <!-- ================================================= -->
 
          <Button
                  fx:id="addRoomButton"
+
                  mnemonicParsing="false"
                  onAction="#addRoom"
+
                  prefHeight="42.0"
+                 minWidth="110.0"
                  prefWidth="130.0"
+
                  text="Add Room"
+
                  style="-fx-background-color: #2563EB;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -464,15 +619,22 @@
                            -fx-cursor: hand;"/>
 
 
+         <!-- ================================================= -->
          <!-- UPDATE -->
+         <!-- ================================================= -->
 
          <Button
                  fx:id="updateRoomButton"
+
                  mnemonicParsing="false"
                  onAction="#updateRoom"
+
                  prefHeight="42.0"
+                 minWidth="100.0"
                  prefWidth="130.0"
+
                  text="Update"
+
                  style="-fx-background-color: #16A34A;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -481,15 +643,22 @@
                            -fx-cursor: hand;"/>
 
 
+         <!-- ================================================= -->
          <!-- DELETE -->
+         <!-- ================================================= -->
 
          <Button
                  fx:id="deleteRoomButton"
+
                  mnemonicParsing="false"
                  onAction="#deleteRoom"
+
                  prefHeight="42.0"
+                 minWidth="100.0"
                  prefWidth="130.0"
+
                  text="Delete"
+
                  style="-fx-background-color: #DC2626;
                            -fx-text-fill: white;
                            -fx-font-size: 13px;
@@ -498,14 +667,20 @@
                            -fx-cursor: hand;"/>
 
 
+         <!-- ================================================= -->
          <!-- BACK -->
+         <!-- ================================================= -->
 
          <Button
                  mnemonicParsing="false"
                  onAction="#backToMain"
+
                  prefHeight="42.0"
+                 minWidth="80.0"
                  prefWidth="100.0"
+
                  text="Back"
+
                  style="-fx-background-color: #E2E8F0;
                            -fx-text-fill: #334155;
                            -fx-font-size: 13px;

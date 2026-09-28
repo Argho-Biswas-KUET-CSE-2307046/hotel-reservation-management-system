@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -19,7 +20,7 @@
         prefWidth="1100.0"
         prefHeight="750.0"
 
-        minWidth="850.0"
+        minWidth="800.0"
         minHeight="600.0"
 
         style="-fx-background-color: #F5F7FB;">
@@ -33,6 +34,8 @@
         <HBox
                 alignment="CENTER_LEFT"
                 spacing="15.0"
+
+                minHeight="75.0"
                 prefHeight="90.0"
 
                 style="-fx-background-color: #FFFFFF;
@@ -49,11 +52,16 @@
 
             </padding>
 
-            <VBox spacing="3.0">
+
+            <VBox
+                    spacing="3.0"
+                    maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS">
 
                 <Label
                         text="WEATHER INFORMATION"
-                        textFill="#1E3A8A">
+                        textFill="#1E3A8A"
+                        wrapText="true">
 
                     <font>
 
@@ -65,9 +73,11 @@
 
                 </Label>
 
+
                 <Label
                         text="7-day weather forecast and live weather information"
-                        textFill="#64748B">
+                        textFill="#64748B"
+                        wrapText="true">
 
                     <font>
 
@@ -81,8 +91,11 @@
 
             </VBox>
 
+
             <Region
+                    minWidth="10.0"
                     HBox.hgrow="ALWAYS"/>
+
 
             <Label
                     text="LIVE DATA"
@@ -124,7 +137,10 @@
                 <VBox
                         alignment="TOP_CENTER"
                         spacing="20.0"
+
                         fillWidth="true"
+
+                        maxWidth="Infinity"
 
                         style="-fx-background-color: #F5F7FB;">
 
@@ -145,6 +161,7 @@
 
                     <VBox
                             spacing="12.0"
+
                             maxWidth="900.0"
 
                             style="-fx-background-color: #DBEAFE;
@@ -185,7 +202,7 @@
                         </Label>
 
 
-                        <!-- SEARCH INPUT -->
+                        <!-- RESPONSIVE SEARCH AREA -->
 
                         <HBox
                                 alignment="CENTER_LEFT"
@@ -195,9 +212,10 @@
                                     fx:id="cityField"
 
                                     prefHeight="42.0"
-                                    prefWidth="500.0"
 
                                     promptText="Enter city name"
+
+                                    maxWidth="Infinity"
 
                                     HBox.hgrow="ALWAYS"
 
@@ -218,6 +236,8 @@
                                     onAction="#refreshWeather"
 
                                     prefHeight="42.0"
+
+                                    minWidth="150.0"
                                     prefWidth="180.0"
 
                                     text="Refresh Weather"
@@ -240,6 +260,7 @@
 
                     <VBox
                             spacing="18.0"
+
                             maxWidth="900.0"
 
                             style="-fx-background-color: #FFFFFF;
@@ -253,13 +274,18 @@
                         <!-- CURRENT WEATHER HEADER -->
 
                         <HBox
-                                alignment="CENTER_LEFT">
+                                alignment="CENTER_LEFT"
+                                spacing="10.0">
 
-                            <VBox spacing="4.0">
+                            <VBox
+                                    spacing="4.0"
+                                    maxWidth="Infinity"
+                                    HBox.hgrow="ALWAYS">
 
                                 <Label
                                         text="Current Weather"
-                                        textFill="#172554">
+                                        textFill="#172554"
+                                        wrapText="true">
 
                                     <font>
 
@@ -274,7 +300,8 @@
 
                                 <Label
                                         text="Live information received from an online API"
-                                        textFill="#64748B">
+                                        textFill="#64748B"
+                                        wrapText="true">
 
                                     <font>
 
@@ -290,6 +317,7 @@
 
 
                             <Region
+                                    minWidth="10.0"
                                     HBox.hgrow="ALWAYS"/>
 
 
@@ -318,6 +346,8 @@
                                 alignment="CENTER"
                                 spacing="5.0"
 
+                                maxWidth="Infinity"
+
                                 style="-fx-background-color: #EFF6FF;
                                        -fx-background-radius: 10;
                                        -fx-padding: 18;">
@@ -340,7 +370,8 @@
                             <Label
                                     fx:id="cityLabel"
                                     text="--"
-                                    textFill="#1E3A8A">
+                                    textFill="#1E3A8A"
+                                    wrapText="true">
 
                                 <font>
 
@@ -359,9 +390,15 @@
                         <!-- CURRENT WEATHER VALUES -->
                         <!-- ================================================= -->
 
-                        <HBox
-                                spacing="15.0"
-                                alignment="CENTER">
+                        <FlowPane
+                                alignment="CENTER"
+
+                                hgap="15.0"
+                                vgap="15.0"
+
+                                prefWrapLength="650.0"
+
+                                maxWidth="Infinity">
 
 
                             <!-- TEMPERATURE -->
@@ -370,9 +407,10 @@
                                     alignment="CENTER"
                                     spacing="7.0"
 
+                                    minWidth="190.0"
                                     prefWidth="210.0"
-
-                                    HBox.hgrow="ALWAYS"
+                                    minHeight="110.0"
+                                    prefHeight="125.0"
 
                                     style="-fx-background-color: #FEF3C7;
                                            -fx-background-radius: 10;
@@ -396,7 +434,8 @@
                                 <Label
                                         fx:id="temperatureLabel"
                                         text="-- °C"
-                                        textFill="#B45309">
+                                        textFill="#B45309"
+                                        wrapText="true">
 
                                     <font>
 
@@ -417,9 +456,10 @@
                                     alignment="CENTER"
                                     spacing="7.0"
 
+                                    minWidth="190.0"
                                     prefWidth="210.0"
-
-                                    HBox.hgrow="ALWAYS"
+                                    minHeight="110.0"
+                                    prefHeight="125.0"
 
                                     style="-fx-background-color: #DBEAFE;
                                            -fx-background-radius: 10;
@@ -443,7 +483,8 @@
                                 <Label
                                         fx:id="humidityLabel"
                                         text="--%"
-                                        textFill="#2563EB">
+                                        textFill="#2563EB"
+                                        wrapText="true">
 
                                     <font>
 
@@ -464,9 +505,10 @@
                                     alignment="CENTER"
                                     spacing="7.0"
 
+                                    minWidth="190.0"
                                     prefWidth="210.0"
-
-                                    HBox.hgrow="ALWAYS"
+                                    minHeight="110.0"
+                                    prefHeight="125.0"
 
                                     style="-fx-background-color: #DCFCE7;
                                            -fx-background-radius: 10;
@@ -507,7 +549,7 @@
 
                             </VBox>
 
-                        </HBox>
+                        </FlowPane>
 
 
                         <!-- ================================================= -->
@@ -517,6 +559,8 @@
                         <VBox
                                 spacing="12.0"
 
+                                maxWidth="Infinity"
+
                                 style="-fx-background-color: #F8FAFC;
                                        -fx-background-radius: 10;
                                        -fx-padding: 18;">
@@ -525,9 +569,13 @@
                             <!-- FORECAST HEADER -->
 
                             <HBox
-                                    alignment="CENTER_LEFT">
+                                    alignment="CENTER_LEFT"
+                                    spacing="10.0">
 
-                                <VBox spacing="3.0">
+                                <VBox
+                                        spacing="3.0"
+                                        maxWidth="Infinity"
+                                        HBox.hgrow="ALWAYS">
 
                                     <Label
                                             text="7-DAY FORECAST"
@@ -546,7 +594,8 @@
 
                                     <Label
                                             text="Daily temperature and weather conditions"
-                                            textFill="#64748B">
+                                            textFill="#64748B"
+                                            wrapText="true">
 
                                         <font>
 
@@ -562,6 +611,7 @@
 
 
                                 <Region
+                                        minWidth="10.0"
                                         HBox.hgrow="ALWAYS"/>
 
 
@@ -587,7 +637,6 @@
                             <!-- ================================================= -->
 
                             <ScrollPane
-
                                     fitToHeight="false"
                                     fitToWidth="false"
 
@@ -611,9 +660,7 @@
                                             prefHeight="250.0"
                                             minHeight="250.0"
 
-                                            style="-fx-background-color: transparent;">
-
-                                    </HBox>
+                                            style="-fx-background-color: transparent;"/>
 
                                 </content>
 
@@ -628,6 +675,8 @@
 
                         <HBox
                                 alignment="CENTER"
+
+                                maxWidth="Infinity"
 
                                 style="-fx-background-color: #F8FAFC;
                                        -fx-background-radius: 8;
@@ -672,6 +721,7 @@
                 alignment="CENTER_RIGHT"
                 spacing="12.0"
 
+                minHeight="65.0"
                 prefHeight="70.0"
 
                 style="-fx-background-color: #FFFFFF;
@@ -690,6 +740,7 @@
 
 
             <Region
+                    minWidth="10.0"
                     HBox.hgrow="ALWAYS"/>
 
 
@@ -701,6 +752,8 @@
                     onAction="#backToMain"
 
                     prefHeight="42.0"
+
+                    minWidth="90.0"
                     prefWidth="100.0"
 
                     text="Back"
